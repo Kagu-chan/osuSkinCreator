@@ -94,7 +94,7 @@ class Test_Scene
     loop do
       break unless $scene == self
       Graphics.update
-      Input.update
+      Input._update
       break if update
     end
     Graphics.freeze
@@ -110,7 +110,7 @@ class Test_Scene
       $kill = false
       $scene = Test_Scene.new
     end
-    Input.trigger? Input::C
+    (Input.mouse? || Input.trigger?(Input::C))
   end
   
   def create_script

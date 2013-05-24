@@ -208,7 +208,7 @@ module Input
   end
   
   def self._update
-    @old_keys = @new_keys
+    @old_keys = @new_keys.nil? ? [] : @new_keys
     @new_keys = _keyboard_layout
     update
   end
