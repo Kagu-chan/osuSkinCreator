@@ -62,6 +62,11 @@ module Globs
       
       $first_run = true
     end
+		
+		# Following code is not in base condition - version specified changes
+		
+		# v0.2
+		Dir.mkdir($user_name + "/OSC_Skin") unless FileTest.exist?($user_name + "/OSC_Skin")
   end
   
 	# Programm main handle. Running scenes and manage exceptions

@@ -40,73 +40,6 @@
 # #  - Nothing in this license impairs or restricts the author's moral rights.
 # #  
 # #----------------------------------------------------------------------------
-# 
-# new in 2.0b:
-# 
-#   - added option to hide Windows' cursor
-#   - added possibility to hide and show the ingame cursor during the game
-#   - added possibility to change the cursor icon
-#   - added several new options
-#   - optimized
-# 
-# 
-# Instructions:
-# 
-# - Explanation:
-# 
-#   This script can work as a stand-alone for window option selections. To be
-#   able to use the mouse buttons, you need a custom Input module. The
-#   supported systems are "Custom Game Controls" from Tons of Add-ons,
-#   Blizz-ABS Custom Controls and RMX-OS Custom Controls. This script will
-#   automatically detect and apply the custom input modules' configuration
-#   which is optional.
-#   
-# - Configuration:
-# 
-#   MOUSE_ICON          - the default filename of the icon located in the
-#                         Graphics/Pictures folder
-#   APPLY_BORDERS       - defines whether the ingame cursor can go beyond the
-#                         game window borders
-#   WINDOW_WIDTH        - defines the window width, required only when using
-#                         APPLY_BORDER
-#   WINDOW_HEIGHT       - defines the window height, required only when using
-#                         APPLY_BORDER
-#   HIDE_WINDOWS_CURSOR - hides the Windows Cursor on the window by default
-#   AUTO_CONFIGURE      - when using "Custom Game Controls" from Tons of
-#                         Add-ons, Blizz-ABS or RMX-OS, this option will
-#                         automatically add the left mouse button as
-#                         confirmation button
-#   
-# - Script Calls:
-#   
-#   You can use a few script calls to manipulate the cursor. Keep in mind that
-#   these changes are not being saved with the save file.
-#   
-#   To hide the ingame Mouse Cursor, use following call.
-#   
-#     $mouse.hide
-#   
-#   To show the ingame Mouse Cursor, use following call.
-#   
-#     $mouse.show
-#   
-#   To change the cursor image, use following call. Make sure your image is
-#   
-#     $mouse.set_cursor('IMAGE_NAME')
-#   
-#   
-# Additional Information:
-#   
-#   Even though there is an API call to determine the size of the window, API
-#   calls are CPU expensive so the values for the window size need to be
-#   configured manually in this script.
-#   
-# 
-# If you find any bugs, please report them here:
-# http://forum.chaos-project.com
-#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
-
-$mouse_controller = 2.0
 
 #===============================================================================
 # Mouse
@@ -120,7 +53,6 @@ class Mouse
 # START Configuration
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   MOUSE_ICON = 'Graphics\\SkinFiles\\cursor'
-  AUTO_CONFIGURE = true
   APPLY_BORDERS = true
   WINDOW_WIDTH = 640
   WINDOW_HEIGHT = 480
@@ -224,24 +156,12 @@ $mouse = Mouse.new
 module Input
   
   class << Input
-    alias update_mousecontroller_later update
+    alias_method :update_mousecontroller_later, :update
   end
   
   def self.update
     $mouse.update
     update_mousecontroller_later
-  end
-  
-  if Mouse::AUTO_CONFIGURE
-    if $BlizzABS
-      C.push(Input::Key['Mouse Left']) if !C.include?(Input::Key['Mouse Left'])
-      if !Attack.include?(Input::Key['Mouse Right'])
-        Attack.push(Input::Key['Mouse Right'])
-      end
-    elsif $tons_version != nil && $tons_version >= 6.4 &&
-        TONS_OF_ADDONS::CUSTOM_CONTROLS || defined?(RMXOS)
-      C.push(Input::Key['Mouse Left']) if !C.include?(Input::Key['Mouse Left'])
-    end
   end
   
 end
@@ -303,108 +223,3 @@ class Window_Base
   end
   
 end
-
-#===============================================================================
-# Window_Selectable
-#===============================================================================
-=begin
-class Window_Selectable
-  
-  alias contents_is_mousecontroller_later contents=
-  def contents=(bitmap)
-    contents_is_mousecontroller_later(bitmap)
-    begin
-      update_selections
-      update_mouse if self.active
-    rescue
-    end
-  end
-  
-  alias index_is_mousecontroller_later index=
-  def index=(value)
-    index_is_mousecontroller_later(value)
-    update_selections
-  end
-  
-  alias active_is_mousecontroller_later active=
-  def active=(value)
-    active_is_mousecontroller_later(value)
-    update_cursor_rect
-  end
-  
-  def update_selections
-    @selections = []
-    index, ox, oy = self.index, self.ox, self.oy
-    (0...@item_max).each {|i|
-        @index = i
-        update_cursor_rect
-        rect = self.cursor_rect.clone
-        rect.x += self.ox
-        rect.y += self.oy
-        @selections.push(rect)}
-    @index, self.ox, self.oy = index, ox, oy
-    self.cursor_rect.empty
-  end
-  
-  alias update_mousecontroller_later update
-  def update
-    update_mouse if self.active
-    update_mousecontroller_later
-  end
-  
-  def update_mouse
-    if self.mouse_in_inner_area?
-      update_mouse_selection
-      return
-    end
-    self.index = -1
-    if self.contents != nil && @selections.size > 0 && self.mouse_in_area?
-      update_mouse_scrolling
-    end
-  end
-  
-  def update_mouse_selection
-    update_selections if @selections.size != @item_max
-    @selections.each_index {|i|
-        if @selections[i].covers?($mouse.x - self.x - 16 + self.ox,
-            $mouse.y - self.y - 16 + self.oy)
-          self.index = i if self.index != i
-          return
-        end}
-    self.index = -1
-  end
-  
-  def update_mouse_scrolling
-    if Input.repeat?(Input::C)
-      if $mouse.x < self.x + 16
-        if self.ox > 0
-          $game_system.se_play($data_system.cursor_se)
-          self.ox -= @selections[0].width
-          self.ox = 0 if self.ox < 0
-        end
-      elsif $mouse.x >= self.x + self.width - 16
-        max_ox = self.contents.width - self.width + 32
-        if self.ox <= max_ox
-          $game_system.se_play($data_system.cursor_se)
-          self.ox += @selections[0].width
-          self.ox = max_ox if self.ox >= max_ox
-        end
-      elsif $mouse.y < self.y + 16
-        if self.oy > 0
-          $game_system.se_play($data_system.cursor_se)
-          self.oy -= @selections[0].height
-          self.oy = 0 if self.oy < 0
-        end
-      elsif $mouse.y >= self.y + self.height - 16
-        max_oy = self.contents.height - self.height + 32
-        if self.oy <= max_oy
-          $game_system.se_play($data_system.cursor_se)
-          self.oy += @selections[0].height
-          self.oy = max_oy if self.oy >= max_oy
-        end
-      end
-    end
-  end
-  
-end
-=end
