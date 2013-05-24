@@ -7,7 +7,8 @@ module Skins
 		# file names and keys
 		@keys = {:d_bg => ["D_Bg", "Pictures"],
 						 :mouse => ["cursor", "SkinFiles"],
-						 :w_skin => ["w_skin", "Windowskins"]
+						 :w_skin => ["w_skin", "Windowskins"],
+						 :menu_back => ["menu-back", "SkinFiles"]
 						}
 		
 		# files which be related to osu skins
@@ -27,7 +28,7 @@ module Skins
 		
 		def self.synchronice
 			@syncs.each { |element|
-				Skins::Osu.add_default(self.get_file(element))
+				Skins::Osu.add_default(@keys[element])
 			}
 		end
 		

@@ -10,29 +10,48 @@ class Context_Options < Context_Base
 		@hovers << add_rel(68, :r, TextInput.new(256, $settings[:osu_dir]), "Your osu! path:")[0]
 		
 		@index = 0
+		
+		@back = Sprite.new
+		@back.bitmap = Bitmap.new Skins::OSC.get_file(:menu_back)
+		
+		@back.x = 5
+		@back.y = 480 - @back.bitmap.height - 5
+		
 		refresh
 	end
   
+	def unload
+		@back.bitmap.dispose
+		@back.dispose
+		super
+	end
+	
   def refresh
     @hovers.each_index { |id| @hovers[id].bitmap.hover = id == @index }
     @hovers[1].bitmap.refresh
   end
   
   def update
+		@inp_c = Input.trigger? Input::C
+		@inp_esc = Input.trigger? Input::B
+		@inp_m = Input.mouse?
+		@inp_u = Input.trigger? Input::UP
+		@inp_d = Input.trigger? Input::DOWN
+		
 		update_mouse
-    if Input.trigger? Input::B
-			$notes.clear
-			$scene = Scenes::Welcome.new if try_to_save
-    end
-    if Input.trigger? Input::DOWN
+    exit if @inp_esc
+		
+    if @inp_d
       @index = (@index + 1) % @hovers.size
       refresh
     end
-    if Input.trigger? Input::UP
+    if @inp_u
       @index = (@index - 1) % @hovers.size
       refresh
     end
-    if Input.trigger? Input::C
+    if @inp_c || @inp_m
+			return exit if @back.mouse_over?
+			
       case @index
       when 0
         save_update_at_startup
@@ -45,12 +64,15 @@ class Context_Options < Context_Base
     nil
   end
 	
+	def exit
+		$notes.clear
+		$scene = Scenes::Welcome.new if try_to_save
+	end
+	
 	def update_mouse
 		@hovers.each_index { |i|
-			if @hovers[i].mouse_over? && Input.mouse?
+			if @hovers[i].mouse_over?
 				@index = i
-				
-				save_update_at_startup if i == 0
 				refresh
 			end
 		}
