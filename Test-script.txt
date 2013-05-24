@@ -1,0 +1,6 @@
+Tests.show_picture "D_Bg"
+   
+#Tests.show_picture "Options1"
+#Tests.change_position 0, 0
+
+

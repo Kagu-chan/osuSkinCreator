@@ -1,0 +1,16 @@
+    Tests.show_picture "Bg"
+   
+    Tests.show_picture "Options1"
+    Tests.change_position 0, 0
+
+    Tests.show_picture "Scan1"
+    Tests.change_position 0, 0
+
+    Tests.show_picture "Logo"
+    Tests.change_position 0, 0
+
+    Tests.show_picture "Exit1"
+    Tests.change_position 0, 0
+
+    Tests.show_picture "New1"
+    Tests.change_position 0, 0
