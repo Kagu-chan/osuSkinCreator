@@ -1,14 +1,17 @@
 def load_components
 	files = [
+		# Loading the earliest initializing code
+		"System/Globs",
+		"System/InitFirst",
 		# Loading code from System Section
 		"System/Audio",
 		"System/Extensions",
 		"System/Overwrites",
 		"System/Loads",
 		"System/Saves",
-		"System/Globs",
 		"System/Timer",
 		"System/Notes",
+		"System/Skinnables",
 		"System/Input",
 		"System/MouseController",
 		

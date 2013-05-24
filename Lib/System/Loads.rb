@@ -11,8 +11,6 @@ module Load
     inp = ["", ""] if inp.size == 0
   
     $language = inp[0] == "" ? "" : "." + inp[0]
-		
-		$own_bg = inp[1] == "" ? $default_bg : inp[1]
 
     langfile = "Shared/Language/startup" + $language + ".lang"
     

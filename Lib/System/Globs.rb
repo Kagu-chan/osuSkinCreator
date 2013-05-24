@@ -37,7 +37,7 @@ module Globs
 		Load.load_settings
 		Globs.clear_temp_directory
 		
-		$bg_past.bitmap = RPG::Cache.picture $own_bg
+		$bg_past.bitmap = Bitmap.new($default_bg)
 		
 		$notes.clear
   end

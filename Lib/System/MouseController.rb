@@ -52,7 +52,7 @@ class Mouse
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # START Configuration
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  MOUSE_ICON = 'Graphics\\SkinFiles\\cursor'
+  MOUSE_ICON = Skins::OSC.get_file(:mouse)
   APPLY_BORDERS = true
   WINDOW_WIDTH = 640
   WINDOW_HEIGHT = 480
