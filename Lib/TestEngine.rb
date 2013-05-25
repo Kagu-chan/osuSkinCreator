@@ -1,5 +1,5 @@
 $TEST_GRAPHICS = true
-$window_skin = "001-Blue011111"
+$window_skin = Skins::OSC.get_file(:w_skin)
 
 $test_windows = []
 $test_graphics = []
