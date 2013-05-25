@@ -60,7 +60,7 @@ module Scenes
 			if Input.mouse? || Input.trigger?(Input::C)
 				case @index
 				when 0
-					print "new skin"
+					$scene = Scenes::SkinCreate.new
 				when 1
 					$scene = Scenes::ReadSkinFiles.new
 				when 2
