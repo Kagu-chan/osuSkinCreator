@@ -12,7 +12,8 @@ module Skins
 						}
 		
 		# files which be related to osu skins
-		@syncs = [:mouse]
+		@syncs = [:mouse,
+							:menu_back]
 		
 		def self.get_file(id)
 			return "" unless @keys.has_key?(id)
