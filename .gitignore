@@ -220,3 +220,6 @@ Aaron/
 
 # Tmp
 Shared/Temp
+
+# Text Files are mostly notes or testcode with special skripts
+*txt
