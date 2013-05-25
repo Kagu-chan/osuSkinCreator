@@ -38,16 +38,28 @@ module Skins
 	module Osu
 	
 		@current_skin_files = []
-		@skin_probs = {}
+		@skin_props = {}
 		
 		@skinnable_dir = "#{$user_name}/OSC_Skin/"
 		@skin_files_dir = "Graphics/SkinFiles/"
 		
 		# the file named string from file.
 		def self.get_file(f_string)
-			f_path = @skinnable_dir + f_name
+			f_path = @skinnable_dir + f_string
 			
 			overwritten = FileTest.exist?(f_path + ".png") || FileTest.exist?(f_path + ".jpg")
+			
+			skinned = false
+			name = nil
+			@current_skin_files.each { |file|
+				f_name = file.split("/")
+				if f_name[f_name.size - 1] == f_string
+					name = file
+					skinned = true
+				end
+			}
+			
+			return name if skinned
 			return overwritten ? f_path : (@skin_files_dir + f_string)
 		end
 		
@@ -65,7 +77,7 @@ module Skins
 		
 		def self.set_properties(hash)
 			return unless hash.is_a? Hash
-			@skin_probs = hash
+			@skin_props = hash
 		end
 		
 		def reset_skin
