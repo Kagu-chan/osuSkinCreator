@@ -32,6 +32,7 @@ def load_components
 		"Windows/Window_MusicBox",
 		"Windows/Window_Context",
 		"Windows/Window_None",
+		"Windows/SkinCreate/Properties",
 		
 		# Loading Scenes
 		"Scenes/Scene_Welcome",
@@ -47,6 +48,7 @@ def load_components
 		"Context Scenes/Context_Welcome",
 		"Context Scenes/Context_Options",
 		"Context Scenes/Context_SkinCreate",
+		"Context Scenes/SkinCreate/Properties",
 		
 		# Loading Externals
 		"Externals/ExternalCalls",
