@@ -36,3 +36,40 @@ class File
 	end
 	
 end
+
+# Bitmaps, which are bigger than 640 x or 480 y will automatically scaled down to the maximum size.
+class Sprite
+
+	alias_method :old_unscaled_bitmap, :bitmap=
+	
+	def bitmap=(value)
+		old_unscaled_bitmap(value)
+		sizes = [value.width, value.height]
+		
+		scale_down_x(sizes[0])
+		scale_down_y(sizes[1])
+	end
+	
+	def scale_down_x(size)
+		return if size <= 640
+		size = size.to_f
+		
+    to_big = size - 640
+		sub_factor = to_big / size
+		factor = 1.0 - sub_factor
+		
+		self.zoom_x = factor
+	end
+	
+	def scale_down_y(size)
+		return if size <= 480
+		size = size.to_f
+		
+    to_big = size - 480
+		sub_factor = to_big / size
+		factor = 1.0 - sub_factor
+      
+		self.zoom_y = factor
+	end
+	
+end
