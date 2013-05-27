@@ -33,7 +33,7 @@ module SCreate
 		def update
 			if Input.mouse? && @back.mouse_over?
 				print "sure to leave"
-				$scene = Scenes::Welcome.new
+				$scene = Scenes::Skins.new
 				return
 			end
 		end

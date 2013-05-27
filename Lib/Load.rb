@@ -32,6 +32,7 @@ def load_components
 		"Windows/Window_MusicBox",
 		"Windows/Window_Context",
 		"Windows/Window_None",
+		"Windows/Window_Skins",
 		"Windows/SkinCreate/Properties",
 		
 		# Loading Scenes
@@ -41,12 +42,14 @@ def load_components
 		"Scenes/Scene_Options",
 		"Scenes/Scene_ReadSkinFiles",
 		"Scenes/Scene_Setup",
+		"Scenes/Scene_Skins",
 		"Scenes/Scene_SkinCreate",
 		
 		# Loading context sensitive scenes
 		"Context Scenes/Context_Base",
 		"Context Scenes/Context_Welcome",
 		"Context Scenes/Context_Options",
+		"Context Scenes/Context_Skins",
 		"Context Scenes/Context_SkinCreate",
 		"Context Scenes/SkinCreate/Properties",
 		
