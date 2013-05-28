@@ -12,7 +12,7 @@ class Context_Options < Context_Base
 		@index = 0
 		
 		@back = Sprite.new
-		@back.bitmap = Bitmap.new Skins::OSC.get_file(:menu_back)
+		@back.bitmap = Bitmap.new System::Skins::OSC.get_file(:menu_back)
 		
 		@back.x = 5
 		@back.y = 480 - @back.bitmap.height - 5
@@ -81,7 +81,7 @@ class Context_Options < Context_Base
 	def save_update_at_startup
 		@hovers[@index].bitmap.checked = !@hovers[@index].bitmap.checked
     $settings[:update_at_startup] = @hovers[@index].bitmap.checked
-    Save.save_settings
+    System::Saves.save_settings
 	end
 	
 	def try_to_save
@@ -103,7 +103,7 @@ class Context_Options < Context_Base
 		
 		if curr
 			$settings[:osu_dir] = path
-			Save.save_settings
+			System::Saves.save_settings
 		else
 			$notes << "In the given directory osu! is no osu! installation!"
 			@hovers[1].bitmap.text = $settings[:osu_dir]

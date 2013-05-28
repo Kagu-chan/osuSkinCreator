@@ -14,7 +14,7 @@ module SCreate
 			gr_last.bitmap.draw_text(gr_last.bitmap.rect, "Set Skin Properties", 1)
 			
 			@back = Sprite.new
-			@back.bitmap = Bitmap.new Skins::OSC.get_file(:menu_back)
+			@back.bitmap = Bitmap.new System::Skins::OSC.get_file(:menu_back)
 			
 			@back.x = 5
 			@back.y = 480 - @back.bitmap.height - 5
