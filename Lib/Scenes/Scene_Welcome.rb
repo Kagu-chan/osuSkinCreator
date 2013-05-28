@@ -3,7 +3,7 @@ module Scenes
 	class Welcome
 		
 		def main
-			Threads.read_skin_cache if $skin_files.size == 0
+			System::Threads.read_skin_cache if $skin_files.size == 0
 			
 			@bg = Sprite.new
 			@bg.bitmap = RPG::Cache.picture $force_bg

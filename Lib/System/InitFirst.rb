@@ -1,10 +1,14 @@
-module InitFirst
+module System
 
-	def self.init_first
-		Globs.set_user_name
-		Globs.secure_folder
+	module InitFirst
+
+		def self.init_first
+			System::Globs.set_user_name
+			System::Globs.secure_folder
+		end
+		
 	end
-	
+
 end
 
-InitFirst.init_first
+System::InitFirst.init_first

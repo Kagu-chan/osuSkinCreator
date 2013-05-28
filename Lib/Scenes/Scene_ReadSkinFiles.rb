@@ -6,7 +6,7 @@ module Scenes
 			$skin_files = []
 			
 			$notes << "Begin to read skin files from osu"
-			Threads.update_skin_lib
+			System::Threads.update_skin_lib
 			
 			Graphics.transition
 			loop do

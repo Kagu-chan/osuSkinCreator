@@ -9,10 +9,10 @@ module Scenes
 			@bg = Sprite.new
 			@bg.bitmap = (RPG::Cache.picture "Initialisation Screen").clone
 			
-			Load.startup_init
+			System::Loads.startup_init
 			$notes << $lang[:load_engine]
 			
-			Threads.run_set_up
+			System::Threads.run_set_up
 			
 			Graphics.transition
 			loop do

@@ -3,15 +3,13 @@ $terminate = false
 $frames = 0
 $notes = []
 $skin_files = []
-$notes_graph = Notes.new
-$time_screen_string = "00:00:00"
-$timer = Timer.new
-$window_skin = Skins::OSC.get_file(:w_skin)
+$notes_graph = System::Notes.new
+$window_skin = System::Skins::OSC.get_file(:w_skin)
 $force_bg = "Bg"
-$default_bg = Skins::OSC.get_file(:d_bg)
+$default_bg = System::Skins::OSC.get_file(:d_bg)
 $logo_graph = "Logo"
 $first_run = false
-$audio = Osc_Audio.new
+$audio = System::Osc_Audio.new
 
 $bg_past = Sprite.new
 
