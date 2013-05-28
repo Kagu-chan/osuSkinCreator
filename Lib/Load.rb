@@ -32,7 +32,7 @@ def load_components
 		"Windows/Window_Context",
 		"Windows/Window_None",
 		"Windows/Window_Skins",
-		"Windows/SkinCreate/Properties",
+		"Windows/SkinCreate/Window_Properties",
 		
 		# Loading Scenes
 		"Scenes/Scene_Welcome",
@@ -48,7 +48,7 @@ def load_components
 		"Contexts/Context_Options",
 		"Contexts/Context_Skins",
 		"Contexts/Context_SkinCreate",
-		"Contexts/SkinCreate/Properties",
+		"Contexts/SkinCreate/Context_Properties",
 		
 		# Loading Externals
 		"Externals/ExternalCalls",
