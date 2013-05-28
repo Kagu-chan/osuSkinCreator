@@ -1,31 +1,27 @@
-$TEST_GRAPHICS = true
-$window_skin = Skins::OSC.get_file(:w_skin)
+$TEST_GRAPHICS = false
+$window_skin = System::Skins::OSC.get_file(:w_skin)
 
 $test_windows = []
 $test_graphics = []
 
 module Tests
   
-  def self.show_window(key=:none)
-    return case key
-      when :menubar
-        $test_windows << Window_MenuBar.new
-      when :leftsec
-        $test_windows << Window_LeftSec.new
-      when :musicbox
-        $test_windows << Window_MusicBox.new
-      when :context
-        $test_windows << Window_Context.new
-      when :none
-        x = Window_Base.new(0, 0, 640, 480)
-        x.visible = false
-        $test_windows << x
-      else
-        print "undefined window type"
-        Kernel.exit
-    end
+  def self.show_window(window)
+    begin
+			cmd = "win = #{window}.new"
+			(Proc.new() { eval(cmd) }).call
+		rescue
+			print "undefined window or missing parameter"
+		end
   end
   
+	def self.scale(x_res, y_res)
+		p = $test_graphics.size == 0 ? nil : $test_graphics[$test_graphics.size-1]
+    return if p.nil?
+		
+		p.zoom_x, p.zoom_y = x_res, y_res
+	end
+	
   def self.show_picture(name)
     p_base = [0, 0]
     if $test_windows.size != 0
@@ -133,5 +129,7 @@ class Test_Scene
   
 end
 
-$scene = Test_Scene.new if $TEST_GRAPHICS
-while !$kill; $scene.main; end
+if $TEST_GRAPHICS
+	$scene = Test_Scene.new
+	while !$kill; $scene.main; end
+end
