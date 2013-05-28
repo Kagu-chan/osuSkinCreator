@@ -9,7 +9,6 @@ def load_components
 		"System/Overwrites",
 		"System/Loads",
 		"System/Saves",
-		"System/Timer",
 		"System/Notes",
 		"System/Skinnables",
 		"System/Input",
@@ -37,7 +36,6 @@ def load_components
 		
 		# Loading Scenes
 		"Scenes/Scene_Welcome",
-		"Scenes/Scene_Main",
 		"Scenes/Scene_ChangeLanguage",
 		"Scenes/Scene_Options",
 		"Scenes/Scene_ReadSkinFiles",
@@ -46,12 +44,11 @@ def load_components
 		"Scenes/Scene_SkinCreate",
 		
 		# Loading context sensitive scenes
-		"Context Scenes/Context_Base",
-		"Context Scenes/Context_Welcome",
-		"Context Scenes/Context_Options",
-		"Context Scenes/Context_Skins",
-		"Context Scenes/Context_SkinCreate",
-		"Context Scenes/SkinCreate/Properties",
+		"Contexts/Context_Base",
+		"Contexts/Context_Options",
+		"Contexts/Context_Skins",
+		"Contexts/Context_SkinCreate",
+		"Contexts/SkinCreate/Properties",
 		
 		# Loading Externals
 		"Externals/ExternalCalls",
@@ -71,7 +68,6 @@ def load_components
 		# Loading Global Elements (Such as Variables or Functions)
 		"Globs/ThreadPointer",
 		"Globs/InitValues",
-		"Globs/GlobFuncs",
 		"Globs/Threads"
 	]
 	
