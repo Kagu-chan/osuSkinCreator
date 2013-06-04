@@ -11,4 +11,4 @@ module System
 
 end
 
-System::InitFirst.init_first
+#System::InitFirst.init_first

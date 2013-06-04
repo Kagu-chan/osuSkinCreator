@@ -4,7 +4,7 @@
 # Type: Custom Input System
 # Date: 9.10.2009
 # Date v2.0b: 22.7.2010
-# Edit by Kagurame for osc v0.1 muse control
+# Edit by Kagurame for osc v0.1 mouse control
 #:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
 #   
 #  This work is protected by the following license:
@@ -52,7 +52,6 @@ class Mouse
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # START Configuration
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  MOUSE_ICON = System::Skins::OSC.get_file(:mouse)
   APPLY_BORDERS = true
   WINDOW_WIDTH = 640
   WINDOW_HEIGHT = 480
@@ -73,7 +72,7 @@ class Mouse
   def initialize
     @cursor = Sprite.new
     @cursor.z = 1000000
-    self.set_cursor(MOUSE_ICON)
+    self.set_cursor(System::Skins::OSC.get_file(:mouse))
     update
   end
   
@@ -147,8 +146,6 @@ class Mouse
   
 end
 
-$mouse = Mouse.new
-
 #==============================================================================
 # module Input
 #==============================================================================
@@ -160,7 +157,7 @@ module Input
   end
   
   def self.update
-    $mouse.update
+    $mouse.update unless $mouse.nil?
     update_mousecontroller_later
   end
   
@@ -178,6 +175,7 @@ class Rect
   end
   
 	def mouse_over?
+		return false if $mouse.nil?
 		mx = $mouse.mx
 		my = $mouse.my
 		pos = [x - mx, x + width - mx, y - my, y + height - my]
@@ -194,6 +192,7 @@ class Sprite
   
   def mouse_in_area?
     return false if self.bitmap.nil?
+		return false if $mouse.nil?
 		mx = $mouse.mx
 		my = $mouse.my
 		pos = [x - mx, x + bitmap.width - mx, y - my, y + bitmap.height - my]
@@ -213,11 +212,13 @@ end
 class Window_Base
   
   def mouse_in_area?
+		return false if $mouse.nil?
     return ($mouse.x >= self.x && $mouse.x < self.x + self.width &&
         $mouse.y >= self.y && $mouse.y < self.y + self.height)
   end
   
   def mouse_in_inner_area?
+		return false if $mouse.nil?
     return ($mouse.x >= self.x + 16 && $mouse.x < self.x + self.width - 16 &&
         $mouse.y >= self.y + 16 && $mouse.y < self.y + self.height - 16)
   end

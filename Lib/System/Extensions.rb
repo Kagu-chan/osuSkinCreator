@@ -26,6 +26,7 @@ end
 class File
 
 	def File.copy(from, to)
+		p from, to
 		fr_stream = File.open(from, "rb")
 		to_stream = File.open(to, "wb")
 		

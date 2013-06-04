@@ -7,6 +7,8 @@ module System
 		# Programm entry point!
 		def self.run_application
 			begin
+				System::Globs::Initialization.ensure_user_dir
+				System::Globs::Initialization.set_variables
 				System::Threads.run_main_handle
 				System::Threads.run_notes_update_handle
 				System::Threads.run_thread_filter_handle

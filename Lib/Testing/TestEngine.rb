@@ -1,5 +1,4 @@
 $TEST_GRAPHICS = false
-$window_skin = System::Skins::OSC.get_file(:w_skin)
 
 $test_windows = []
 $test_graphics = []
