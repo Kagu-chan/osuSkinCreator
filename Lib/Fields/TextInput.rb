@@ -1,8 +1,6 @@
 class TextInput < Bitmap
   
-  attr_reader :sprite
   attr_reader :length
-  attr_accessor :visible
   attr_accessor :hover
   
   def initialize(length, text="")
