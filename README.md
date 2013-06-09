@@ -9,8 +9,7 @@ clicking the required graphics and souns in the software.
 
 Its currently in progress, so dont use it for real - its senseless.
 
-To make the engine running, search in the web for the software "RPG Maker XP" and 
-install the "RGSS Player". You do not need the game dev engine byself. Only the player.
+To make the engine running, Please install the content of the archive "PlayerInstall.rar"
 
 The base script in the project is loading and evaluating, then running the 
 scripts "Lib/Load.rb" and "Lib/Run.rb". This script are doing all the rest ;)
