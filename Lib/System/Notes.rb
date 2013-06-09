@@ -7,6 +7,9 @@ module System
 		def initialize
 			refresh
 			
+			@window = Window_Base.new(0, 0, 640, 44, 99999, 180)
+			@window.change_window_skin(System::Skins::OSC.get_file(:notes_skin))
+			
 			@note = Sprite.new; @note.z = 99999
 			@note.bitmap = Bitmap.new(1, 1)
 			@last_size = 0
@@ -17,7 +20,7 @@ module System
 		def refresh
 			@span = 5
 			@size = [640, 24]
-			@pos = [0, 0]
+			@pos = [0, 10]
 		end
 		
 		def redraw
@@ -58,6 +61,7 @@ module System
 			@disposed = true
 			@note.bitmap.dispose
 			@note.dispose
+			@window.dispose
 		end
 		
 	end

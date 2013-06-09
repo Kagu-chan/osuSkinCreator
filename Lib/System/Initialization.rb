@@ -9,13 +9,13 @@ module System
 				$threads = []
 				$terminate = false
 				$frames = 0
-				$notes = []
-				$skin_files = []
-				$notes_graph = System::Notes.new
 				$window_skin = System::Skins::OSC.get_file(:w_skin)
 				$force_bg = "Bg"
 				$default_bg = System::Skins::OSC.get_file(:d_bg)
 				$logo_graph = "Logo"
+				$notes = []
+				$skin_files = []
+				$notes_graph = System::Notes.new
 				$first_run = false
 				$audio = System::Osc_Audio.new
 
