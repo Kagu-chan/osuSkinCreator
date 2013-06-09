@@ -47,30 +47,78 @@ class Sprite
 		old_unscaled_bitmap(value)
 		sizes = [value.width, value.height]
 		
-		scale_down_x(sizes[0])
-		scale_down_y(sizes[1])
+		scale_down_x(sizes[0], 640)
+		scale_down_y(sizes[1], 480)
 	end
 	
-	def scale_down_x(size)
-		return if size <= 640
+	def scale_down_x(size, to)
+		return if size <= to
 		size = size.to_f
 		
-    to_big = size - 640
+    to_big = size - to
 		sub_factor = to_big / size
 		factor = 1.0 - sub_factor
 		
 		self.zoom_x = factor
 	end
 	
-	def scale_down_y(size)
-		return if size <= 480
+	def scale_down_y(size, to)
+		return if size <= to
 		size = size.to_f
 		
-    to_big = size - 480
+    to_big = size - to
 		sub_factor = to_big / size
 		factor = 1.0 - sub_factor
       
 		self.zoom_y = factor
 	end
 	
+	def scale_down_to(width, height)
+		sizes = [self.bitmap.width, self.bitmap.height]
+		
+		scale_down_x(sizes[0], width)
+		scale_down_y(sizes[1], height)
+	end
+	
+end
+
+class Bitmap
+
+	def coloring(color)
+		for x in 0...self.width
+			for y in 0...self.height
+				c = get_pixel(x, y)
+				c.red = [c.red - color.red, 0].max
+				c.green = [c.green - color.green, 0].max
+				c.blue = [c.blue - color.blue, 0].max
+				set_pixel(x, y, c)
+			end
+		end
+		self
+	end
+	
+	def get_inverted_color
+		r = 0
+		g = 0
+		b = 0
+		px = 0
+		w = self.width
+		h = self.height
+		for x in 0...w
+			for y in 0...h
+				c = get_pixel(x, y)
+				r += c.red
+				g += c.green
+				b += c.blue
+				px += 1
+			end
+			#h = [h-1, 0].max
+			w = [w-1, 0].max
+		end
+		r /= px
+		g /= px
+		b /= px
+		Color.new(255 - r, 255 - g, 255 - b)
+	end
+
 end
