@@ -1,31 +1,24 @@
 =begin
-class Scene_Title
-  
-  def update
-    if Input.trigger? Input::C
-      add_thread(Thread.new(1) { print "ente" })
-    end
-  end
-  
+System::Globs::Initialization.ensure_user_dir
+System::Globs::Initialization.set_variables
+
+$notes_graph.dispose
+
+$kill = false
+x = SkinPreview.new(0, 0, "New Skin")
+
+y = SkinPreview.new(200, 0, "Load Skin", "C:\\Programme\\osu!\\Skins\\Kagus Satisfaction\\")
+z = SkinPreview.new(400, 0, "Last Skin", "C:\\Programme\\osu!\\Skins\\KuroxKaga Love\\")
+
+while !$kill
+	Graphics.update
+	Input._update
+	x.update
+	y.update
+	z.update
+	$kill = Input.trigger? Input::C
 end
-
-    @fncMessageBox       = Win32API.new(u,"MessageBox",['l','p','p','l'],'i')
-
-  #-----------------------------------------------------------------------------
-  #Gibt wie normales PRINT, der Titel lässt sich aber selber bestimmen
-  ####Parameter
-  #inner    :Inhalt des Fensters
-  #title    :Titel des Fensters
-  #-----------------------------------------------------------------------------
-  def print(inner, title = "")
-    @fncMessageBox.call(0,"#{inner}",title,0)
-  end
-
-
-
-
-staff Miikku (keyboard)
-
-Temp wird Shared
-
+x.dispose
+y.dispose
+z.dispose
 =end
