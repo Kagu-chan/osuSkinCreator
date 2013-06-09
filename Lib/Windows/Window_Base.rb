@@ -15,7 +15,7 @@ class Window_Base < Window
   #     width  : window width
   #     height : window height
   #--------------------------------------------------------------------------
-  def initialize(x, y, width, height, z=0)
+  def initialize(x, y, width, height, z=0, opacity=120)
     super()
     @windowskin_name = $window_skin if $window_skin
     self.windowskin = Bitmap.new(@windowskin_name)
@@ -24,8 +24,9 @@ class Window_Base < Window
     self.width = width
     self.height = height
     self.z = z
-    self.opacity = 120
-    
+    self.opacity = opacity
+    self.contents = Bitmap.new(width - 32, height - 32)
+		
     @x = x
     @y = y
     @width = width
