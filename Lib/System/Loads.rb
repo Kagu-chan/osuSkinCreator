@@ -60,10 +60,13 @@ module System
 			file.close
 			
 			inp = input.split("\r\n")
-			inp = ["", "1"] if inp.size == 0
+			inp = ["", "1", ""] if inp.size == 0
 			
 			$settings[:osu_dir]           = inp[0]
 			$settings[:update_at_startup] = inp[1] == "1" ? true : false
+			
+			inp << "" if inp.size == 2
+			$settings[:last]							= inp[2]
 		end
 		
 		def self.load_file_list
