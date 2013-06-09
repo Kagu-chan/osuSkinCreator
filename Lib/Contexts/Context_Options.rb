@@ -7,7 +7,7 @@ class Context_Options < Context_Base
     @hovers = []
     
     @hovers << add_rel(34, :r, CheckBox.new($settings[:update_at_startup]), $lang[:update_skinlib])[0]
-		@hovers << add_rel(68, :r, TextInput.new(256, $settings[:osu_dir]), "Your osu! path:")[0]
+		@hovers << add_rel(68, :r, Label.new(256, $settings[:osu_dir]), "Your osu! path:")[0]
 		
 		@index = 0
 		
@@ -16,8 +16,6 @@ class Context_Options < Context_Base
 		
 		@back.x = 5
 		@back.y = 480 - @back.bitmap.height - 5
-		
-		refresh
 	end
   
 	def unload
@@ -26,11 +24,6 @@ class Context_Options < Context_Base
 		super
 	end
 	
-  def refresh
-    @hovers.each_index { |id| @hovers[id].bitmap.hover = id == @index }
-    @hovers[1].bitmap.refresh
-  end
-  
   def update
 		@inp_c = Input.trigger? Input::C
 		@inp_esc = Input.trigger? Input::B
@@ -38,28 +31,21 @@ class Context_Options < Context_Base
 		@inp_u = Input.trigger? Input::UP
 		@inp_d = Input.trigger? Input::DOWN
 		
-		update_mouse
+		@hovers.each { |hover|
+			hover.bitmap.hover = hover.mouse_over?
+		}
     exit if @inp_esc
 		
-    if @inp_d
-      @index = (@index + 1) % @hovers.size
-      refresh
-    end
-    if @inp_u
-      @index = (@index - 1) % @hovers.size
-      refresh
-    end
     if @inp_c || @inp_m
 			return exit if @back.mouse_over?
 			
-      case @index
-      when 0
-        save_update_at_startup
-			when 1
-				try_to_save
-      end
+			if @hovers[0].bitmap.hover
+				save_update_at_startup
+			end
+			if @hovers[1].bitmap.hover
+				$scene = Scenes::SetOsuDir.new
+			end
     end
-    @hovers[@index].bitmap.update if @index == 1
     
     nil
   end
@@ -67,15 +53,6 @@ class Context_Options < Context_Base
 	def exit
 		$notes.clear
 		$scene = Scenes::Welcome.new if try_to_save
-	end
-	
-	def update_mouse
-		@hovers.each_index { |i|
-			if @hovers[i].mouse_over?
-				@index = i
-				refresh
-			end
-		}
 	end
 	
 	def save_update_at_startup
