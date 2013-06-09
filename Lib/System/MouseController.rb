@@ -68,7 +68,13 @@ class Mouse
   READ_INI = Win32API.new('kernel32', 'GetPrivateProfileStringA', %w(p p p p l p), 'l')
   FIND_WINDOW = Win32API.new('user32', 'FindWindowA', %w(p p), 'l')
   CURSOR_POSITION = Win32API.new('user32', 'GetCursorPos', 'p', 'i')
+	GET_MESSAGE = Win32API.new('user32', 'GetMessage', 'plll', 'l')
+	Scroll = 0x0000020A
   
+	Point = Struct.new(:x, :y)
+  Message = Struct.new(:message, :wparam, :lparam, :pt)
+  Param = Struct.new(:x, :y, :scroll)
+	
   def initialize
     @cursor = Sprite.new
     @cursor.z = 1000000
@@ -106,7 +112,49 @@ class Mouse
 		y -= @my
     return x, y
   end
+	
+	def hiword(dword); return ((dword&0xffff0000) >> 16)&0x0000ffff; end
+  def loword(dword); return dword&0x0000ffff; end
+    
+  def word2signed_short(value)
+    return value if (value&0x8000) == 0
+    return -1 * ((~value&0x7fff) + 1)
+  end
   
+  def unpack_dword(buffer, offset = 0)
+    ret = buffer[offset + 0]&0x000000ff
+    ret |= (buffer[offset + 1] << (8 * 1))&0x0000ff00
+    ret |= (buffer[offset + 2] << (8 * 2))&0x00ff0000
+    ret |= (buffer[offset + 3] << (8 * 3))&0xff000000
+    return ret
+  end
+  
+  def unpack_msg(buffer)
+    msg = Message.new; msg.pt = Point.new
+    msg.message=unpack_dword(buffer,4*1)
+    msg.wparam = unpack_dword(buffer, 4 * 2)
+    msg.lparam = unpack_dword(buffer,4*3)
+    msg.pt.x = unpack_dword(buffer, 4 * 5)
+    msg.pt.y = unpack_dword(buffer, 4 * 6)
+    return msg
+  end
+  
+  def wmcallback(msg)
+    return unless msg.message == Scroll
+    param = Param.new
+    param.x = word2signed_short(loword(msg.lparam))
+    param.y = word2signed_short(hiword(msg.lparam))
+    param.scroll = word2signed_short(hiword(msg.wparam))
+    return [param.x, param.y, param.scroll]
+  end
+	
+  def scroll?
+    msg = "\0" * 32
+		GET_MESSAGE.call(msg, 0, 0, 0)
+		r = wmcallback unpack_msg(msg)
+    return r.nil? ? nil : r[2] > 0 ? true : false
+  end
+	
   def get_client_position
     pos = [0, 0].pack('ll')
     CURSOR_POSITION.call(pos)
@@ -161,6 +209,10 @@ module Input
     update_mousecontroller_later
   end
   
+	def self.scroll?
+		$mouse.scroll?
+	end
+	
 end
 
 #===============================================================================
@@ -213,14 +265,26 @@ class Window_Base
   
   def mouse_in_area?
 		return false if $mouse.nil?
-    return ($mouse.x >= self.x && $mouse.x < self.x + self.width &&
-        $mouse.y >= self.y && $mouse.y < self.y + self.height)
+		mx = $mouse.mx
+		my = $mouse.my
+		pos = [self.x - mx, self.x + self.width - mx, self.y - my, self.y + self.height - my]
+		return $mouse.x.between?(pos[0], pos[1]) && $mouse.y.between?(pos[2], pos[3])
   end
   
   def mouse_in_inner_area?
 		return false if $mouse.nil?
-    return ($mouse.x >= self.x + 16 && $mouse.x < self.x + self.width - 16 &&
-        $mouse.y >= self.y + 16 && $mouse.y < self.y + self.height - 16)
+		mx = $mouse.mx
+		my = $mouse.my
+		pos = [self.x - mx + 16, self.x + self.width - mx - 16, self.y - my + 16, self.y + self.height - my - 16]
+		return $mouse.x.between?(pos[0], pos[1]) && $mouse.y.between?(pos[2], pos[3])
   end
   
+	def mouse_over?
+		mouse_in_area?
+	end
+	
+	def mouse_inner?
+		mouse_in_inner_area?
+	end
+	
 end

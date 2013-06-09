@@ -133,6 +133,13 @@ module Input
 	def self.mouse?
 		_trigger? "l mouse"
 	end
+	#-----------------------------------------------------------------------------
+  ####Rückgabe    True, wenn die Maus (rechts) gerade gedrückt wurde.
+  ####Parameter
+  #-----------------------------------------------------------------------------
+	def self.mouse_r?
+		_trigger? "r mouse"
+	end
   #-----------------------------------------------------------------------------
   ####Rückgabe    True, wenn die Taste gerade losgelassen wurde.
   ####Parameter
