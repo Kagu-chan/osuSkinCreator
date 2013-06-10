@@ -45,7 +45,7 @@ class SkinPreview < Window_Base
 	end
 	
 	def refresh
-		s = System::Skins::Helper.get_hit_circle(@path, 4, Color.new(253,133,15))
+		s = System::Skins::Helper.get_hit_circle(@path, rand(10), Color.new(253,133,15))
 		s.x += 10 + self.x
 		s.y += 5 + self.y
 		@sprites << s
@@ -65,6 +65,8 @@ class SkinPreview < Window_Base
 		b.y = 147 - 2 - 34 + self.y
 		@sprites << b
 		
+		Graphics.update
+		
 		s = Sprite.new
 		s.bitmap = Bitmap.new(192, 34)
 		s.bitmap.font.color = b.bitmap.get_inverted_color
@@ -72,6 +74,8 @@ class SkinPreview < Window_Base
 		s.x += 2 + self.x
 		s.y = 147 - 2 - 34 + self.y
 		@sprites << s
+		
+		Graphics.update
 		
 		s = System::Skins::Helper.get_ranking_xh(@path)
 		s.x = self.x - s.bitmap.width - 5 + self.width
