@@ -44,6 +44,8 @@ module SkinCreate
 				t = p.nil? ? "No Skin :(" : "Last Skin"
 				@last = SkinPreview.new(428, 110, t, p)
 				@last.disable if p.nil?
+				
+				$notes.clear
 			end
 			
 			def unload
