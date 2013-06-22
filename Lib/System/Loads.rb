@@ -80,6 +80,29 @@ module System
 			$notes.clear
 		end
 		
+		def self.load_infotexts
+			$infos = {}
+			$language = ""
+			file = File.open("Shared/Language/infotexts#{$language}.lang", "rb")
+			input = file.read
+			file.close
+			
+			texts = []
+			
+			o_inp = input.split(/\#[0-9]*\:/)
+			o_inp.each { |inp| 
+				inp = inp.strip
+				texts << inp unless inp == ""
+			}
+			
+			texts.each_index { |i|
+				$infos["i#{i.to_s}"] = texts[i]
+			}
+			
+			p $infos
+		end
+		
 	end
 
 end
+System::Loads.load_infotexts

@@ -19,6 +19,7 @@ module System
 				$first_run = false
 				$audio = System::Osc_Audio.new
 				$osu_dir = nil
+				$infos = {}
 				
 				$bg_past = Sprite.new
 
