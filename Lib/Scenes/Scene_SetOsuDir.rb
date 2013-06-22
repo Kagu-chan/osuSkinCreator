@@ -3,7 +3,9 @@ module Scenes
 	class SetOsuDir
 	
 		def main
-			
+			p "obsolete call!"
+			$scene = Scenes::Options.new
+			return
 			@window = Window_Context.new
 			
 			@back = Sprite.new

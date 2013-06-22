@@ -18,7 +18,8 @@ module System
 				$notes_graph = System::Notes.new
 				$first_run = false
 				$audio = System::Osc_Audio.new
-
+				$osu_dir = nil
+				
 				$bg_past = Sprite.new
 
 				$language = ""

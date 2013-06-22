@@ -20,10 +20,10 @@ module SkinCreate
 				@new = Sprite.new
 				@last = Sprite.new
 				
-				Dir.foreach($settings[:osu_dir] + "/Skins") { |file|
+				Dir.foreach($osu_dir + "/Skins") { |file|
 					next if file == "." || file == ".."
 					
-					f_name = "#{$settings[:osu_dir]}/Skins/#{file}/"
+					f_name = "#{$osu_dir}/Skins/#{file}/"
 					next unless FileTest.exist?(f_name + "skin.ini")
 					@skin_list << f_name
 				}

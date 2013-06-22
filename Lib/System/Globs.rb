@@ -40,7 +40,7 @@ module System
 			System::Loads.load_language_file
 			System::Loads.load_settings
 			System::Globs.clear_temp_directory
-			
+			System::Globs.set_osu_dir
 			$bg_past.bitmap = Bitmap.new($default_bg)
 			
 			$notes.clear
@@ -190,6 +190,16 @@ module System
 			deads.each { |th|
 				$threads.delete th
 			}
+		end
+		
+		# Sets the osu directiory
+		def self.set_osu_dir
+			Interfacing::TaskHandler.osu_dir
+			dir = nil
+			while dir.nil?
+				dir = Interfacing::NotesHandler.osu_dir?
+			end
+			$osu_dir = dir
 		end
 		
 	end

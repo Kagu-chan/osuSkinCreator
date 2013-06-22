@@ -7,9 +7,7 @@ class Context_Options < Context_Base
     @hovers = []
     
     @hovers << add_rel(34, :r, CheckBox.new($settings[:update_at_startup]), $lang[:update_skinlib])[0]
-		@hovers << add_rel(68, :r, Label.new(256, $settings[:osu_dir]), "Your osu! path:")[0]
-		
-		@index = 0
+		@hovers << add_rel(68, :r, Label.new(256, $osu_dir), "Your osu! path:")[0]
 		
 		@back = Sprite.new
 		@back.bitmap = Bitmap.new System::Skins::OSC.get_file(:menu_back)
@@ -42,9 +40,6 @@ class Context_Options < Context_Base
 			if @hovers[0].bitmap.hover
 				save_update_at_startup
 			end
-			if @hovers[1].bitmap.hover
-				$scene = Scenes::SetOsuDir.new
-			end
     end
     
     nil
@@ -52,41 +47,13 @@ class Context_Options < Context_Base
 	
 	def exit
 		$notes.clear
-		$scene = Scenes::Welcome.new if try_to_save
+		$scene = Scenes::Welcome.new
 	end
 	
 	def save_update_at_startup
-		@hovers[@index].bitmap.checked = !@hovers[@index].bitmap.checked
-    $settings[:update_at_startup] = @hovers[@index].bitmap.checked
+		@hovers[0].bitmap.checked = !@hovers[0].bitmap.checked
+    $settings[:update_at_startup] = @hovers[0].bitmap.checked
     System::Saves.save_settings
 	end
 	
-	def try_to_save
-		curr = true
-		
-		path = @hovers[1].bitmap.text
-		path = path.ensure_extend("/", "\\", "/")
-		
-		curr = FileTest.exist? path
-		curr = FileTest.exist? path + "Songs/" if curr
-		curr = FileTest.exist? path + "Skins/" if curr
-		
-		unless curr
-			path = path.ensure_extend("osu!/", "osu!", "osu!/")
-			curr = FileTest.exist? path
-			curr = FileTest.exist? path + "Songs/" if curr
-			curr = FileTest.exist? path + "Skins/" if curr
-		end
-		
-		if curr
-			$settings[:osu_dir] = path
-			System::Saves.save_settings
-		else
-			$notes << "In the given directory osu! is no osu! installation!"
-			@hovers[1].bitmap.text = $settings[:osu_dir]
-		end
-		
-		curr
-	end
-  
 end

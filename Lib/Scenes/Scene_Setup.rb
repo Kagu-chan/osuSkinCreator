@@ -32,15 +32,10 @@ module Scenes
 		
 		def update
 			if $th___run_set_up
-				if $first_run || $settings[:osu_dir] == ""
-					$notes << "Settings are invalid!"
-					$scene = Scenes::Options.new
+				if !FileTest.exist?($user_name + "/SkinCache.skd") || $settings[:update_at_startup]
+					$scene = Scenes::ReadSkinFiles.new
 				else
-					if !FileTest.exist?($user_name + "/SkinCache.skd") || $settings[:update_at_startup]
-						$scene = Scenes::ReadSkinFiles.new
-					else
-						$scene = Scenes::Welcome.new
-					end
+					$scene = Scenes::Welcome.new
 				end
 			end
 		end
