@@ -57,6 +57,10 @@ def load_components
 		"\\Externals/",
 		"ExternalCalls",
 		
+		# Loading Interfacing
+		"\\Interfacing/",
+		"Handlers",
+		
 		# Loading Exceptions and Exception Handling
 		"\\Exceptions/",
 		"Exceptions",
