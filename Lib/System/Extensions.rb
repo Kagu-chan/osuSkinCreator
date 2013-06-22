@@ -143,11 +143,16 @@ class Sprite
 			when 0
 				nil
 			when 1
-				args[0]
+				[args[0]]
 			else
 				[args[0], args[1]]
 		end
 		return if infos.nil?
+		
+		infos.each_index { |inf|
+			length = [100, infos[inf].length].min
+			infos[inf] = infos[inf][0...length]
+		}
 		
 		@key = "#{rand(1000000).to_s}"
 		@info = infos
