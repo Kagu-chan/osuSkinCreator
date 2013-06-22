@@ -122,3 +122,48 @@ class Bitmap
 	end
 
 end
+
+# Sprites could have a infobox
+class Sprite
+
+	class << self; 
+		attr_accessor :texts
+	end
+	
+	def setup
+		self.class.texts ||= {}
+	end
+	private :setup
+	
+	attr_reader :info
+	
+	def add_info_text(*args)
+		setup
+		infos = case args.size
+			when 0
+				nil
+			when 1
+				args[0]
+			else
+				[args[0], args[1]]
+		end
+		return if infos.nil?
+		
+		@key = "#{rand(1000000).to_s}"
+		@info = infos
+		self.class.texts[@key] = self
+	end
+	
+	def has_info_text?
+		!@key.nil?
+	end
+	
+	alias_method :jrgcbfexkndjnfxgiz_dispose, :dispose
+	def dispose
+		unless @key.nil?
+			self.class.texts.delete(@key) if self.class.texts.has_key?(@key)
+		end
+		jrgcbfexkndjnfxgiz_dispose
+	end
+	
+end
