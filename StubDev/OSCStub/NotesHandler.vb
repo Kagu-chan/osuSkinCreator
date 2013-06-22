@@ -8,7 +8,12 @@ Namespace OSC
     Module NotesHandler
 
         Private _files() As String = {"SkinAvailable",
-                                      "OsuDir"}
+                                      "OsuDir",
+                                      "CreatedUserFolder",
+                                      "CopiedSkinData",
+                                      "StubRunning",
+                                      "Inverted",
+                                      "InvertedCollection"}
 
         Public Sub SetUp()
             If Not IO.Directory.Exists("Messages") Then IO.Directory.CreateDirectory("Messages")
@@ -30,7 +35,7 @@ Namespace OSC
         End Sub
 
         ' create notification with text input
-        Public Sub CreateNote(ByVal id As Integer, ByVal args() As String)
+        Public Sub CreateNote(ByVal id As Integer, ByVal args As IEnumerable(Of String))
             Dim f_name As String = "Messages/Note_" + _files(id)
             Dim f As New IO.StreamWriter(f_name, False)
             For Each arg As String In args

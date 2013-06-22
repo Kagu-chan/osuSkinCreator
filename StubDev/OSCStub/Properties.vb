@@ -8,6 +8,7 @@ Namespace OSC
     Module Properties
 
         Public Notifier As NotifyIcon
+        Public OsuRegKey As String = "HKEY_CLASSES_ROOT\Applications\osu!.exe\shell\open\command"
 
     End Module
 

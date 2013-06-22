@@ -4,6 +4,7 @@ Option Infer On
 Option Strict On
 
 Imports System.ComponentModel
+Imports System.Runtime.CompilerServices
 
 Namespace OSC
 
@@ -26,6 +27,8 @@ Namespace OSC
 
         Public Sub New()
             NotesHandler.SetUp()
+            NotesHandler.CreateNote(4)
+
             TaskChecker.SetUp()
 
             Properties.Notifier = New NotifyIcon()
@@ -84,11 +87,20 @@ Namespace OSC
         Private Sub CreateHandleMenu()
             Dim context As New ContextMenuStrip
             With context
+                .Items.Add("Start Osu")
+                AddHandler .Items.GetLast.Click, Sub()
+                                                     Dim osuPath As String = CStr(My.Computer.Registry.GetValue(
+                                                        "HKEY_CLASSES_ROOT\Applications\osu!.exe\shell\open\command", "", Nothing))
+                                                     osuPath = osuPath.Substring(1)
+                                                     osuPath = osuPath.Substring(0, osuPath.IndexOf(""""))
+                                                     Process.Start(osuPath)
+                                                 End Sub
+
                 .Items.Add("Read Skin Library")
-                AddHandler .Items(0).Click, Sub() TaskExecuter.AnalizeSkins()
+                AddHandler .Items.GetLast.Click, Sub() TaskExecuter.AnalizeSkins()
 
                 .Items.Add("Exit")
-                AddHandler .Items(1).Click, Sub() If Not _process.HasExited Then _process.CloseMainWindow()
+                AddHandler .Items.GetLast.Click, Sub() If Not _process.HasExited Then _process.CloseMainWindow()
 
             End With
 
@@ -96,5 +108,15 @@ Namespace OSC
         End Sub
 
     End Class
+
+    Public Module Extensions
+
+        <Extension()>
+        Public Function GetLast(ByVal self As ToolStripItemCollection) As ToolStripItem
+            If self.Count = 0 Then Return Nothing
+            Return self(self.Count - 1)
+        End Function
+
+    End Module
 
 End Namespace
