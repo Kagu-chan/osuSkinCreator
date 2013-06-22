@@ -1,0 +1,105 @@
+Notes to osc dev directory
+
+
+NOTIFY
+
+	OSCStub.exe will start Game.exe and other important stuff (see source code or following documentation)
+	Game.exe will start the programm.
+	At this time osc is not multilanguage. It will be reimplemented later
+	
+DIRECTORIES
+
+	.git									git hub system directoy (don´t tuch!)
+	Audio									contains required Audio files. Loading from this in Lib/System/Audio.rb
+	Data									contains the main code - this loading additional code
+	Graphics							contains required graphics - sorted in sub directories. most of sub folders are obsulete!
+	Graphics/SkinFiles		the default osu! skin
+	Kagurame							userfolder dev system win 7 Kagu-chan
+	Kai										userfolder dev system win xp Kagu-chan
+	Lib										contains the main code - see Lib/Load.rb for details. Lib/Run.rb runs the code
+	Shared								contains language files and temp dir
+	Shared/Temp						maybe obsulete!
+	StubDev								contains the dev files of the stub. Look in source for more details or following documentation of this
+	VBDev Other						obsulete! Old dev dir of skin reader. Skin reader is implemented in stub now. Will be deleted if stub is working!
+	Messages							interface Stub => OSC
+	Tasks									interface OSC => Stub
+	osuSkins							temp skin directory from stub. Stub analize skin files and puts files here. OSC catch scin files from there to user folder
+	
+
+FILES
+
+
+	.gitattributes					git hub system file (don´t tuch!)
+	.gitignore							git hub system file (don´t tuch!)
+	Game.exe								OSC main app. Dont start it manually.
+	Game.ini								ini file for osc. Version info and required script files stored here.
+	Game.rxproj							main engine file from osc. Don´t tuch!
+	Homescreen Script.txt		design skript.
+	PlayerInstall.rar				required rgss player installation directory. unpack and install to use osc.
+	README.md								git hub system file (don´t tuch!)
+	Test-script.txt					design coding and testing file.
+	Todo kagu.txt						germand notifications for main developer
+	osusk.ico								main icon of osc.
+	Game_original.exe				backup file. obsulete!
+	OSCStub_original.exe		backup file. obsulete!
+	OSCStub.exe							osc stub. run this to run osc!
+	NOTES										this file.
+	Data/Scripts.rxdata			main code of osc. include load and run routines and keyboard adresses (don´t tuch!)
+	
+	
+USERFOLDER
+
+
+	OSC_Skin								contains nothing normally. Copy own files in this to overrite osc graphics or create default files for skins. Looking for correct filename!
+	SkinData								contains stored skin preferences (file lists). (don´t tuch!)
+	Log.txt									user´s log file. send me this file if you have some errors or problems. Will be overwritten each osc start.
+	SkinCache.skd						complete osu skin files file list. (don´t tuch!)
+	startup.ini							this configuration file for osc. will be load at first.
+	usersettings.ini				your settings.
+	
+	
+STUB STUFF
+
+
+	*	analize osu skin files at begin
+	*	copy analized skin file lists to user folder
+	*	finding out osu install directory
+	*	creating user folder with default files
+	
+	OSCStub is controlled via special task files in tasks directory. Don´t create files by hand.
+	OSCStub is creating special notes files in messages directory. Don´t create files by hand.
+	OSCStub ends automatically if OSC stopped.
+	OSC don´t stop if OSCStub stopped.
+	Osu could startet from OSCStub, right-clicking notify bar icon and select your function.
+	Left-clicking the icon brings OSC to foreground and get system focus on it.
+	
+	
+FILE EXTENSIONS
+
+
+	*.skd		skin filelists. Its an acronym to SKin Data. Normally it contains big file lists of your osu skin files and story board files.
+	
+	
+UPCOMING UPDATESYSTEM
+
+
+	osc load all his code and then don´t need the directory "Lib". So OSCStub will update files if OSC running. Replace old files and
+	send a message via Messages directory interface - OSC notify user for new version. Only restart osc. A function to restart OSC
+	will be implemented in OSCStub, but no auto restart function. OSCStub looking in intervalls for updates and maybe the user is working
+	on a skin which is not compiled.
+	
+	OSCStub will update via an integrated updater (not implemented at this time).
+	The update path will be changable in Game.ini file. OSC copy it self to temp directory of the computer system.
+	This copy will startet with special parameters, this copy download new files. At programm ending (normally) or forced at start(special 
+	notes	in update files) the update files will be changed to programm files (renaming). OSC stub will have a minimal file size.
+	
+	
+OSC FILE SIZE
+
+
+	A lot of dev copies (skin related) existing. So the directory size is over 100 mb at this time.
+	The using version will contains the rgss player (23 mb), code files and osc graphics (~1 mb) and the template skin files (~ 10 mb, 
+	will be sorted out for skinnable and not skinnable files).
+	So osc has in real a file size of ~~ 35 mb, the maximum i´m thinking about is 50 mb.
+	
+	139,5 kb of this used by code - the rest been graphics or created own files (e.g. *.skd)
