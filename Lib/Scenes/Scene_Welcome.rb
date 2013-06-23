@@ -19,6 +19,11 @@ module Scenes
 			@elements << "New1" << "Scan1" << "Options1" << "Exit1"
 			@c_rects << Rect.new(23, 414, btl, bth) << Rect.new(180, 414, btl, bth) << Rect.new(338, 414, btl, bth) << Rect.new(492, 414, btl, bth)
 			
+			@c_rects[0].add_info_text($infos["i0"], $infos["i1"])
+			@c_rects[1].add_info_text($infos["i2"])
+			@c_rects[2].add_info_text($infos["i3"])
+			@c_rects[3].add_info_text($infos["i4"], $infos["i5"])
+			
 			@index = 0
 			
 			@element_graphs = []
@@ -45,6 +50,8 @@ module Scenes
 			@logo.dispose
 			
 			@element_graphs.each { |e| e.bitmap.dispose; e.dispose }
+			
+			@c_rects.each { |r| r.dispose }
 		end
 		
 		def refresh
