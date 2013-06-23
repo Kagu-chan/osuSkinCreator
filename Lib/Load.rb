@@ -32,6 +32,7 @@ def load_components
 		"UpDown",
 		"Browse",
 		"Label",
+		"HelpPopup",
 		
 		# Loading Scenes
 		"\\Scenes/",
