@@ -224,5 +224,8 @@ Shared/Temp
 # osuSkins
 osuSkins/
 
+Messages/
+Tasks/
+
 # Text Files are mostly notes or testcode with special skripts
 *txt
