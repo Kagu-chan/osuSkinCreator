@@ -133,12 +133,10 @@ class Sprite
 	def setup
 		self.class.texts ||= {}
 	end
-	private :setup
-	
 	attr_reader :info
+	attr_reader :box
 	
 	def add_info_text(*args)
-		setup
 		infos = case args.size
 			when 0
 				nil
@@ -156,6 +154,8 @@ class Sprite
 		
 		@key = "#{rand(1000000).to_s}"
 		@info = infos
+		@box = HelpPopup.new(@info, self)
+		
 		self.class.texts[@key] = self
 	end
 	
@@ -169,6 +169,54 @@ class Sprite
 			self.class.texts.delete(@key) if self.class.texts.has_key?(@key)
 		end
 		jrgcbfexkndjnfxgiz_dispose
+	end
+	
+end
+
+# Rects could have a infobox
+class Rect
+
+	class << self; 
+		attr_accessor :texts
+	end
+	
+	def setup
+		self.class.texts ||= {}
+	end
+	attr_reader :info
+	attr_reader :box
+	
+	def add_info_text(*args)
+		infos = case args.size
+			when 0
+				nil
+			when 1
+				[args[0]]
+			else
+				[args[0], args[1]]
+		end
+		return if infos.nil?
+		
+		infos.each_index { |inf|
+			length = [100, infos[inf].length].min
+			infos[inf] = infos[inf][0...length]
+		}
+		
+		@key = "#{rand(1000000).to_s}"
+		@info = infos
+		@box = HelpPopup.new(@info, self)
+		
+		self.class.texts[@key] = self
+	end
+	
+	def has_info_text?
+		!@key.nil?
+	end
+	
+	def dispose
+		unless @key.nil?
+			self.class.texts.delete(@key) if self.class.texts.has_key?(@key)
+		end
 	end
 	
 end
