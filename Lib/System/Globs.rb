@@ -11,6 +11,7 @@ module System
 				System::Globs::Initialization.set_variables
 				System::Threads.run_main_handle
 				System::Threads.run_notes_update_handle
+				System::Threads.run_infobox_handle
 				System::Threads.run_thread_filter_handle
 				
 				while !$terminate; end
@@ -39,6 +40,7 @@ module System
 			$notes << $lang[:load_engine]
 			System::Loads.load_language_file
 			System::Loads.load_settings
+			System::Loads.load_infotexts
 			System::Globs.clear_temp_directory
 			System::Globs.set_osu_dir
 			$bg_past.bitmap = Bitmap.new($default_bg)

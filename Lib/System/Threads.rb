@@ -117,6 +117,36 @@ module System
 			}
 		end
 		
+		def self.run_infobox_handle
+			$log.log(false, :info, "Threads: run_infobox_handle")
+			
+			# Ensure the living of class instance variable from sprites.
+			# therewhile i dont know how to ensure the existing class handled byself!
+			s = Sprite.new
+			s.setup
+			
+			r = Rect.new(0, 0, 1, 1)
+			r.setup
+			
+			$threads << Thread.new(3) {
+				$th___run_thread_filter_handle = false
+				begin
+					loop {
+						Sprite.texts.each_pair { |key, value|
+							value.box.update if value.has_info_text?
+						}
+						Rect.texts.each_pair { |key, value|
+							value.box.update if value.has_info_text?
+						}
+					}
+					sleep 2
+				rescue => e
+					Thread.main.raise(e)
+				end
+				$th___run_thread_filter_handle = true
+			}
+		end
+		
 	end
 
 end
