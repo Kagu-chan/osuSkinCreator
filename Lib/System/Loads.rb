@@ -98,11 +98,8 @@ module System
 			texts.each_index { |i|
 				$infos["i#{i.to_s}"] = texts[i]
 			}
-			
-			p $infos
 		end
 		
 	end
 
 end
-System::Loads.load_infotexts
