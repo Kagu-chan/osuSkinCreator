@@ -1,24 +1,32 @@
 =begin
 System::Globs::Initialization.ensure_user_dir
 System::Globs::Initialization.set_variables
+System::Loads.load_infotexts
 
 $notes_graph.dispose
 
 $kill = false
-x = SkinPreview.new(0, 0, "New Skin")
 
-y = SkinPreview.new(200, 0, "Load Skin", "C:\\Programme\\osu!\\Skins\\Kagus Satisfaction\\")
-z = SkinPreview.new(400, 0, "Last Skin", "C:\\Programme\\osu!\\Skins\\KuroxKaga Love\\")
+a = Sprite.new
+a.setup
+a.bitmap = Bitmap.new(640, 480)
+a.bitmap.fill_rect(a.bitmap.rect, Color.new(255, 255, 255))
+
+x = Sprite.new
+x.bitmap = Bitmap.new(50, 50)
+x.bitmap.fill_rect(x.bitmap.rect, Color.new(0, 0, 0))
+#i0 i2
+x.add_info_text($infos["i0"], $infos["i1"])
+
+System::Threads.run_infobox_handle
 
 while !$kill
 	Graphics.update
 	Input._update
-	x.update
-	y.update
-	z.update
-	$kill = Input.trigger? Input::C
+	#if Input.trigger? Input::B
+	#	p x.box
+	#end
+	$kill = Input.trigger?(Input::C) || Input.mouse?
 end
-x.dispose
-y.dispose
-z.dispose
+Kernel.exit
 =end
