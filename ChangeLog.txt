@@ -1,0 +1,401 @@
+ChangeLog OSC
+
+start log 24.06.2013
+
+
+24.06.2013
+Beginning to log the changes in a textfile and counting the versionnumbers in inifile
+
+
+24.06.2013
+Commit of the current code base. First commit!
+
+
+24.06.2013
+Added readme in the github branch
+
+
+24.06.2013
+Removed unused code and much comments on MouseController.rb
+
+
+24.06.2013
+Replaced alias with alias_method (be sure to make more than one alias each method possible)
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+Added Folder for costum editor skins in user directory
+
+VERSION (NAME: 'Osu! Skin Creator V0.1.0.6') REFRESHED
+
+
+24.06.2013
+Added mouse support in graphics test engine
+
+
+24.06.2013
+added some code in main script to get details at errors. Better to deploy
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+Make osc skinnable. put graphics on USERNAME/OSC_Skin to skin elements. Its the same concept is used on osu! byself. Skinnable files are named in Lib/System/Skinnables.rb. Also you can add osu skin files. This files will be used as standard on new skins
+
+VERSION (NAME: 'Osu! Skin Creator V0.2.0.9') REFRESHED
+
+
+24.06.2013
+added back button in options
+
+
+24.06.2013
+ignored some files on github
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.1.12') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+added codebase for creating new skins. Implemented skin create scene calling in welcome screen
+
+
+24.06.2013
+make back button skinnable
+
+
+24.06.2013
+delete game engine code on window base - not required.
+
+
+24.06.2013
+windowskin file now skinnable
+
+
+24.06.2013
+added some functions (load, compile...) in Skin::Osu-Module
+
+
+24.06.2013
+fixed issue with skin file loads
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.2.19') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+added context for skin properties
+
+
+24.06.2013
+added sprite extension to scale down pictures
+
+
+24.06.2013
+fixed view issue with notes (flickering)
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.3.23') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+created skins scene
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.4.25') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+renamed directory: Context Scenes => Contexts
+
+
+24.06.2013
+removed GlobsFuncs file - functions stored in System::Globs.* (Module)
+
+
+24.06.2013
+removed scene main (unused)
+
+
+24.06.2013
+removed timer (unused)
+
+
+24.06.2013
+fixed not deactivating error on graphics test engine
+
+
+24.06.2013
+clean up code base
+
+
+24.06.2013
+clean up load script (removed unused files, add new files, changing directories)
+
+
+24.06.2013
+renamed "skin create" related files
+
+
+24.06.2013
+fixed viewing issue on windows
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.5.35') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+clean up some code
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.2.6.37') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+removed unused code (contexts, scenes)
+
+
+24.06.2013
+removed senseless textinput flags
+
+
+24.06.2013
+bitmaps could chnage the color now and all sprites could be scaled
+
+
+24.06.2013
+notes drawed to early - fixed
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+notes have now a windowed design
+
+VERSION (NAME: 'Osu! Skin Creator V0.3.6.42') REFRESHED
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+mouse rightclick and mouse wheel implemented
+
+VERSION (NAME: 'Osu! Skin Creator V0.4.6.43') REFRESHED
+
+
+24.06.2013
+changed the window skin for notes
+
+
+24.06.2013
+removed and added masses of files in Load.rb - cleanup
+
+
+24.06.2013
+pllication directory is now a global value in engine
+
+
+24.06.2013
+half transparent windows
+
+
+24.06.2013
+added text label. Only showing text
+
+
+24.06.2013
+added updown component (switching lists or functions)
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+added a own file browser. This will be used to import files!
+
+VERSION (NAME: 'Osu! Skin Creator V0.5.6.50') REFRESHED
+
+
+24.06.2013
+fixed some stuff with skinnables
+
+
+24.06.2013
+added new settings for "last edited skin"
+
+
+24.06.2013
+implemented the brwoser component to the options (selecting osu directory)
+
+
+24.06.2013
+new and clean skin scene and own namespace for better deploying
+
+
+24.06.2013
+added SkinHelper module for loading explicit osu bitmaps (such as a complete hitcirle with count and overlay)
+
+
+24.06.2013
+implemented new SkinPreview component (this show some graphics of a skin and a text explaining his functionally)
+
+
+24.06.2013
+test code file!
+
+
+24.06.2013
+New Skin => Selection: new, load, edit last
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+added the required rgss player into the repo. The player will be required to run osc
+
+VERSION (NAME: 'Osu! Skin Creator V0.6.6.59') REFRESHED
+
+
+24.06.2013
+explaining installation in README.md
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.6.7.61') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+Graphics.update in SkinPreview (this time user notification that the app is not hanging - working on better ways to display)
+
+
+24.06.2013
+cleared notes in Scene_Skins at beginning
+
+
+24.06.2013
+old skin reader added for interested people
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+added a stub application to osc. the stub will run the engine and take some hard parts of the engine (get faster)
+
+VERSION (NAME: 'Osu! Skin Creator V0.7.7.65') REFRESHED
+
+
+24.06.2013
+compiled stub added
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.7.8.67') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+added instructions file
+
+
+24.06.2013
+ignored system directorys in github
+
+
+24.06.2013
+changed osc exe icon
+
+
+24.06.2013
+added interfacing handler file
+
+
+24.06.2013
+added some functions for stub
+
+
+24.06.2013
+setting osu dir via stub application - no user handling now
+
+
+24.06.2013
+osc os now only run when stub is running
+
+
+24.06.2013
+missing file loaded
+
+
+24.06.2013
+infotext properties for sprites added
+
+
+24.06.2013
+language files for infoboxes added (not used yet)
+
+
+24.06.2013
+sprites split infos longer than 100 characters
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.7.9.79') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+removed temp files
+
+
+24.06.2013
+ignored temp directories
+
+
+24.06.2013
+removed debug code
+
+
+24.06.2013
+changed test texts to real used texts (infoboxes)
+
+
+24.06.2013
+added infobox properties also to Rect:Class
+
+
+24.06.2013
+add real box element to the referented classes (infoboxes)
+
+
+24.06.2013
+NEW CONTENT ADDED
+
+Added infoboxes to osc stub. this will pupup by mouse hover on some elements in osc.
+
+VERSION (NAME: 'Osu! Skin Creator V0.8.9.86') REFRESHED
+
+
+24.06.2013
+added infoboxes to welcome screen
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.8.10.88') PUBLISHED ON 24.06.2013
+
+
+24.06.2013
+filled out this file :) (old commits included)
+
+
+24.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.8.11.90') PUBLISHED ON 24.06.2013
+
+
+26.06.2013
+testfiles and old note files added
+
+
