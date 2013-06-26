@@ -1,9 +1,0 @@
-Fehlerhafte Languagefiles forcen (eng text laden) (bspw. erst eng, dann de)
-
-text input: ist der index zu niedrig, kann das aktuell ausgewählte zeichen
-links aus dem bild rücken. bei blitting berücksichtigen, gelbes objekt darf nicht
-ubter 0 dargestellt werden, in dem fall wird alles immer nach rechts geschoben
-
-tastatur \ geht nicht
-file#copy geht nicht oder zu schnell
-prüfung valider ordner funktioniert nicht richtig (backslash)
