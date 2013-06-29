@@ -399,3 +399,51 @@ VERSION (NAME: 'Osu! Skin Creator V0.8.11.90') PUBLISHED ON 24.06.2013
 testfiles and old note files added
 
 
+26.06.2013
+Added new interfacing filenames to encrypted scripts file
+
+
+26.06.2013
+add tasks and notes for inverting routines to handlers
+
+
+26.06.2013
+fixed infobox disposing bug (info popups has not disposed when changing the screen)
+
+
+27.06.2013
+Makes infoboxes easier to underatand and faster (own class to handle this - subclass hash)
+
+
+28.06.2013
+Included SkinUpdate via Interfacing (Stub)
+
+
+29.06.2013
+NEW CONTENT ADDED
+
+Added PlugIn-System into OSC engine. Description how to use following, also an correct example plugin
+
+VERSION (NAME: 'Osu! Skin Creator V0.9.11.95') REFRESHED
+
+
+29.06.2013
+Activated Plugins available via $plugins
+
+
+29.06.2013
+Added a example plugin to show how it works.
+
+
+29.06.2013
+removed unused variable from engine ($frames)
+
+
+29.06.2013
+removed unused code file and old skinreader
+
+
+29.06.2013
+VERSION (NAME: 'Osu! Skin Creator V0.9.12.100') PUBLISHED ON 29.06.2013
+
+
