@@ -27,6 +27,16 @@ module Interfacing
 			create(Interfacing::Names.tasks[:gto_dir])
 		end
 		
+		def self.invert_file_list(*args)
+			inp = ""
+			args.each { |i| inp.concat(i + "\n") }
+			create(Interfacing::Names.tasks[:c_inver], inp)
+		end
+		
+		def self.invert_collection(file)
+			create(Interfacing::Names.tasks[:c_i_col], file)
+		end
+		
 	end
 	
 	module NotesHandler
@@ -70,6 +80,16 @@ module Interfacing
 		
 		def self.stub_running?
 			check(Interfacing::Names.notes[:s_rn])
+		end
+		
+		def self.inverted_files?
+			out = check_and_get(Interfacing::Names.notes[:i_li])
+			return out.nil? ? nil : out
+		end
+		
+		def self.inverted_collection?
+			out = check_and_get(Interfacing::Names.notes[:icol])
+			return out.nil? ? nil : out
 		end
 		
 	end
