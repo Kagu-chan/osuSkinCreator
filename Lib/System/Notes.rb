@@ -32,8 +32,6 @@ module System
 		end
 		
 		def update
-			$frames += 1
-			
 			return if @disposed
 			return if $notes.nil?
 			return if @last_size == $notes.size && !@redraw
