@@ -72,6 +72,10 @@ def load_components
 		"Interpreter8",
 		"GameArrayMockups",
 		
+		# Loading the PlugIn System
+		"\\PlugIns/",
+		"Loader",
+		
 		# Loading some test code files
 		"\\Testing/",
 		"Tests",

@@ -45,7 +45,8 @@ module System
 			System::Globs.set_osu_dir
 			$bg_past.bitmap = Bitmap.new($default_bg)
 			
-			$notes.clear
+			$notes << "Loading PlugIn-Engine..."
+			PlugIns::Loader.load_plugins
 		end
 		
 		# Sets the $user_name variable

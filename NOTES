@@ -24,7 +24,7 @@ DIRECTORIES
 	Messages							interface Stub => OSC
 	Tasks									interface OSC => Stub
 	osuSkins							temp skin directory from stub. Stub analize skin files and puts files here. OSC catch scin files from there to user folder
-	
+	PlugIns								PlugIn-Folder. Plug in directories with your plugins, the system analize it byself.
 
 FILES
 

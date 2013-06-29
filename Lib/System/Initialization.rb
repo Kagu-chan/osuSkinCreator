@@ -8,7 +8,6 @@ module System
 				$mouse = Mouse.new
 				$threads = []
 				$terminate = false
-				$frames = 0
 				$window_skin = System::Skins::OSC.get_file(:w_skin)
 				$force_bg = "Bg"
 				$default_bg = System::Skins::OSC.get_file(:d_bg)
@@ -20,6 +19,7 @@ module System
 				$audio = System::Osc_Audio.new
 				$osu_dir = nil
 				$infos = {}
+				$plugins = []
 				
 				$bg_past = Sprite.new
 
