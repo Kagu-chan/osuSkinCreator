@@ -123,18 +123,42 @@ class Bitmap
 
 end
 
+class InfoBox_Collection < Hash
+	private_class_method :new
+	private :[]=
+	private :delete
+	
+	@@inst = nil
+	
+	def InfoBox_Collection.instance(*args, &block)
+		@@inst = new(*args, &block) if @@inst.nil?
+		@@inst
+	end
+	
+	def add(element)
+		return if !element.is_a?(Sprite) && !element.is_a?(Rect)
+		self[element.key] = element
+	end
+	
+	def destroy(key)
+		return if key.nil?
+		if has_key?(key)
+			box = self[key].box
+			unless box.nil?
+				box.dispose unless box.disposed?
+			end
+			delete(key)
+		end
+	end
+	
+end
+
 # Sprites could have a infobox
 class Sprite
 
-	class << self; 
-		attr_accessor :texts
-	end
-	
-	def setup
-		self.class.texts ||= {}
-	end
 	attr_reader :info
 	attr_reader :box
+	attr_reader :key
 	
 	def add_info_text(*args)
 		infos = case args.size
@@ -155,8 +179,6 @@ class Sprite
 		@key = "#{rand(1000000).to_s}"
 		@info = infos
 		@box = HelpPopup.new(@info, self)
-		
-		self.class.texts[@key] = self
 	end
 	
 	def has_info_text?
@@ -165,9 +187,7 @@ class Sprite
 	
 	alias_method :jrgcbfexkndjnfxgiz_dispose, :dispose
 	def dispose
-		unless @key.nil?
-			self.class.texts.delete(@key) if self.class.texts.has_key?(@key)
-		end
+		InfoBox_Collection.instance.destroy(@key)
 		jrgcbfexkndjnfxgiz_dispose
 	end
 	
@@ -176,15 +196,9 @@ end
 # Rects could have a infobox
 class Rect
 
-	class << self; 
-		attr_accessor :texts
-	end
-	
-	def setup
-		self.class.texts ||= {}
-	end
 	attr_reader :info
 	attr_reader :box
+	attr_reader :key
 	
 	def add_info_text(*args)
 		infos = case args.size
@@ -205,8 +219,6 @@ class Rect
 		@key = "#{rand(1000000).to_s}"
 		@info = infos
 		@box = HelpPopup.new(@info, self)
-		
-		self.class.texts[@key] = self
 	end
 	
 	def has_info_text?
@@ -214,9 +226,7 @@ class Rect
 	end
 	
 	def dispose
-		unless @key.nil?
-			self.class.texts.delete(@key) if self.class.texts.has_key?(@key)
-		end
+		InfoBox_Collection.instance.destroy(@key)
 	end
 	
 end

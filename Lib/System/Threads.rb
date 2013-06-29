@@ -86,30 +86,22 @@ module System
 			}
 		end
 		
-		def self.update_skin_lib
+		def self.update_skin_lib(available=false)
 			$log.log(false, :info, "Threads: update_skin_lib")
 			$threads << Thread.new(6) {
 				$th___update_skin_lib = false
 				begin
-					File.delete("Shared/Temp/osrFinnished.skd") if FileTest.exist? "Shared/Temp/osrFinnished.skd"
-					sleep 1
+					$notes << "Wating for skinfiles..."
 					
-					External::Threads.run_skin_reader
+					Interfacing::TaskHandler.analize if !available
 					
-					while !FileTest.exist?("Shared/Temp/osrFinnished.skd")
-						files = System::Globs.read_files_recursive "Shared/Temp"
-						found = files[0]
-						if found.nil?
-							sleep 1
-							next
-						end
-						
-						found.match("([0-9]*)")
-						next if $1 == ""
-						
-						$notes = ["#{$lang[:load_and_sort]} #{$1} #{$lang[:files_found]}"]
-					end
+					loop { break if Interfacing::NotesHandler.skin_available? || available }
 					
+					Interfacing::TaskHandler.copy($user_name)
+					
+					$notes << "Copy skindata to userfolder..."
+					
+					loop { break if Interfacing::NotesHandler.data_copied? }
 				rescue => e
 					Thread.main.raise e
 				end
@@ -120,30 +112,21 @@ module System
 		def self.run_infobox_handle
 			$log.log(false, :info, "Threads: run_infobox_handle")
 			
-			# Ensure the living of class instance variable from sprites.
-			# therewhile i dont know how to ensure the existing class handled byself!
-			s = Sprite.new
-			s.setup
-			
-			r = Rect.new(0, 0, 1, 1)
-			r.setup
-			
 			$threads << Thread.new(3) {
-				$th___run_thread_filter_handle = false
+				$th___run_infobox_handle = false
 				begin
 					loop {
-						Sprite.texts.each_pair { |key, value|
-							value.box.update if value.has_info_text?
-						}
-						Rect.texts.each_pair { |key, value|
-							value.box.update if value.has_info_text?
+						InfoBox_Collection.instance.each_pair{ |key, value|
+							if value.has_info_text? && !value.box.nil?
+								begin; value.box.update unless value.box.disposed?;	rescue; end
+							end
 						}
 					}
 					sleep 2
 				rescue => e
 					Thread.main.raise(e)
 				end
-				$th___run_thread_filter_handle = true
+				$th___run_infobox_handle = true
 			}
 		end
 		

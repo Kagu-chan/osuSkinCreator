@@ -1,5 +1,7 @@
 class HelpPopup < Sprite
 	
+	attr_reader :disposed
+	
 	def initialize(texts, parent)
 		super()
 		self.z = 99999
@@ -8,6 +10,8 @@ class HelpPopup < Sprite
 			raise(InvalidHelpPopupParameters)
 		end
 		@parent = parent
+		
+		InfoBox_Collection.instance.add(@parent)
 		
 		@calcer = Bitmap.new(5, 5)
 		@calcer.font.size = 12
@@ -32,6 +36,7 @@ class HelpPopup < Sprite
 		end
 		
 		self.visible = false
+		@disposed = false
 	end
 	
 	def create_box(text)
@@ -59,6 +64,11 @@ class HelpPopup < Sprite
 	
 	def update
 		self.visible=(@parent.mouse_over?)
+	end
+	
+	def dispose
+		@disposed = true
+		super
 	end
 	
 end

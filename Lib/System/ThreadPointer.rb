@@ -6,4 +6,4 @@ $th___run_set_up = true
 $th___read_skin_cache = true
 $th___run_thread_filter_handle = true
 $th___update_skin_lib = true
-$th___run_thread_filter_handle = true
+$th___run_infobox_handle = true
