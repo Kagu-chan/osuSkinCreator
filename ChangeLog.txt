@@ -447,3 +447,115 @@ removed unused code file and old skinreader
 VERSION (NAME: 'Osu! Skin Creator V0.9.12.100') PUBLISHED ON 29.06.2013
 
 
+29.06.2013
+removed some dev code from vb projects and some files from there. Removed OsuSkinReader (unused now)
+
+
+29.06.2013
+removed unused class variable from plugin script. Also removed old accessor (id)
+
+
+29.06.2013
+Fixed loading bug in plugins. Deactivated plugins are now accessible in the application.
+
+
+29.06.2013
+Changed Load.rb-Pattern of PlugIns. So description is in this file and a name of a settingsclass (could booth be clear strings)
+
+
+30.06.2013
+changed reg key for osu! to the correct value (win 7 / xp / vista etc.
+
+
+30.06.2013
+removed old temp dir clearing routine
+
+
+30.06.2013
+removed old read_files_recursively-routine (unused)
+
+
+30.06.2013
+removed externals directory and code file - unused
+
+
+30.06.2013
+added "activate_back_button" for Context_Base (activate it, call update - super and overwrite exit to exit the current context)
+
+
+30.06.2013
+added PlugIns-section into options. Not Implemented Message at this time
+
+
+30.06.2013
+removed a old obsolete marked function
+
+
+30.06.2013
+removed senseless print and p calls
+
+
+30.06.2013
+added infotext to back button in skin scenes
+
+
+04.07.2013
+added console debug output
+
+
+04.07.2013
+redirect print & p to console (puts)
+
+
+04.07.2013
+p & print could be deactivated or activated ($___p; $___print)
+
+
+04.07.2013
+added object debug inspect method (puts - console)
+
+
+06.07.2013
+added exception logging and logging to debug console
+
+
+06.07.2013
+add plugins scene
+
+
+06.07.2013
+click on osu dir in options opens your osu directory in explorer now
+
+
+07.07.2013
+added settings to example plugin
+
+
+08.07.2013
+button "change skin type" now working
+
+
+08.07.2013
+added load skin context
+
+
+08.07.2013
+removed disposing issue in scene skin (context startup)
+
+
+10.07.2013
+added scrollable skin select preview class (SkinContainer)
+
+
+10.07.2013
+removed senseless and buggy code from window_base
+
+
+10.07.2013
+disbaled plugin view when no plugins installed
+
+
+10.07.2013
+VERSION (NAME: 'Osu! Skin Creator V0.9.13.128') PUBLISHED ON 10.07.2013
+
+
