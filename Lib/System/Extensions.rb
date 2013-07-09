@@ -26,7 +26,6 @@ end
 class File
 
 	def File.copy(from, to)
-		p from, to
 		fr_stream = File.open(from, "rb")
 		to_stream = File.open(to, "wb")
 		
@@ -98,6 +97,7 @@ class Bitmap
 	end
 	
 	def get_inverted_color
+		#raise ArgumentError, "use stub for this operation!"
 		r = 0
 		g = 0
 		b = 0
@@ -227,6 +227,54 @@ class Rect
 	
 	def dispose
 		InfoBox_Collection.instance.destroy(@key)
+	end
+	
+end
+
+class Object
+
+	def puts_self
+		puts "\nobject puttet... object #{self.inspect}:\n"
+		
+		@inner = 1
+		inspect_inner(self)
+	end
+	
+	def inspect_inner(obj, inner=1)
+		instances = obj.instance_variables
+		instances.each { |object|
+			val = obj.instance_variable_get(object)
+			puts "#{("  " * inner)}#{object}(#{val.class.name}): #{val.inspect}"
+			unless val.is_a? String
+				@inner += 1
+				inspect_inner(val, inner)
+				@inner -= 1
+			end
+		}
+	end
+	
+	def usr_stdout?(flag=false)
+		flag or !($DEBUG || FileTest.exist?($running_from + "/Debug"))
+	end
+	
+	alias_method :old_unsignet_print, :print
+	def print(*args)
+		old_unsignet_print(*args) if usr_stdout?($___print)
+		puts "\nredirect print:\n"
+		puts *args
+	end
+	
+	alias_method :old_unsignet_p, :p
+	def p(*args)
+		old_unsignet_p(*args) if usr_stdout?($___p)
+		puts "\nredirect p:\n"
+		puts *args
+	end
+	
+	alias_method :old_unsignet_puts, :puts
+	def puts(*args)
+		return if !($DEBUG || FileTest.exist?($running_from + "/Debug"))
+		old_unsignet_puts(*args)
 	end
 	
 end

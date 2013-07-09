@@ -217,6 +217,8 @@ pip-log.txt
 #User Directories
 Kai/
 Kagurame/
+kevink102937517/
+Daniel/
 
 # Tmp
 Shared/Temp
@@ -226,5 +228,7 @@ osuSkins/
 
 Messages/
 Tasks/
+
+*ignore
 
 # Text Files are mostly notes or testcode with special skripts

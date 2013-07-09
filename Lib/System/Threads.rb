@@ -49,10 +49,6 @@ module System
 			}
 		end
 		
-		def self.osu_skin_reader_run
-			print "no function! use External::Threads.run_skin_reader"
-		end
-		
 		def self.read_skin_cache
 			$log.log(false, :info, "Threads: read_skin_cache")
 			$threads << Thread.new(4) {

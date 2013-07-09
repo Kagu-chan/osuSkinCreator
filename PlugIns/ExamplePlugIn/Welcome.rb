@@ -1,28 +1,33 @@
-# Description Area
-$desc = "This plugin is only showing how plugins work."
-# End Description Area
-
 module Scenes
-
+	
 	class Welcome
 		
 		alias_method :old_extendet_main, :main
 		
 		def main
+			load_plugin_settings
+		
 			text = "This is a message upcoming from the PlugIn 'ExamplePlugIn'.\n"
 			text += "Its showing the function of 'aliasing', so methods not must be overwritten. Please dont use \n"
 			text += "overwrites in PlugIns, it could get incompatible with other PlugIns or destroy other functions while updates.\n"
 			text += "\nTo disable a plugin, go in Options or put a file named 'ignore' into the directory of the plug in. Thank You."
 			
-			print text
+			print text if $plug_example_plugin_show_popup
 			
 			old_extendet_main
+		end
+		
+		def load_plugin_settings
+			plug = nil
+			$plugins.each { |pl|
+				plug = pl if pl.name == "Beispiel-Erweiterung"
+			}
+			$plug_example_plugin_show_popup = FileTest.exist?(plug.location + "/show")
 		end
 		
 	end
 	
 end
-
 =begin
 
 Extending Methods:

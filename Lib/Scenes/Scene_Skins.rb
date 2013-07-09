@@ -3,8 +3,7 @@ module Scenes
 	class Skins
 		
 		def main
-		
-			@title_text = " "
+			
 			@current_context = nil
 			@window = Window_Context.new
 			@next_context = SkinCreate::Context::StartUp.new
@@ -14,6 +13,7 @@ module Scenes
 			
 			@back.x = 5
 			@back.y = 480 - @back.bitmap.height - 5
+			@back.add_info_text("Go back to last screen")
 			
 			@enter = Sprite.new; @enter.visible = false
 			@enter.bitmap = Bitmap.new System::Skins::OSC.get_file(:menu_enter)
@@ -34,11 +34,11 @@ module Scenes
 			@back.dispose
 			@current_context.unload
 			@window.dispose
-			@text.dispose if @text
+			@title.dispose
 		end
 		
 		def refresh
-			@current_context.unload unload unless @current_context.nil?
+			@current_context.unload unless @current_context.nil?
 			@current_context = @next_context
 			@current_context.setup
 			

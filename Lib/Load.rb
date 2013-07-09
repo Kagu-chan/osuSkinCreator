@@ -1,5 +1,8 @@
 def load_components
 	files = [
+		# Redirect the stdout to a debug console
+		"/System/StdOuTRedirect",
+	
 		# Loading Windows
 		"\\Windows/",
 		"Window_Base",
@@ -42,21 +45,22 @@ def load_components
 		"Scene_Setup",
 		"Scene_SetOsuDir",
 		"Scene_Skins",
+		"Scene_PlugIns",
+		"Scene_PlugIn",
 		
 		# Loading context sensitive scenes
 		"\\Contexts/",
 		"Context_Base",
 		"Context_Options",
+		"Context_PlugIns",
 		
 		# Loading SkinCreating referented files
 		"\\SkinCreating/",
 		"Context_StartUp",
+		"Context_LoadSkin",
 		"SkinPreview",
 		"SkinHelper",
-		
-		# Loading Externals
-		"\\Externals/",
-		"ExternalCalls",
+		"SkinContainer",
 		
 		# Loading Interfacing
 		"\\Interfacing/",
@@ -98,5 +102,7 @@ def load_components
 		
 		# Require and load the current named file
 		require(f_name)
+		
+		puts "load /Lib#{base_dir}#{file}.rb"
 	}
 end

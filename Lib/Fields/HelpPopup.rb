@@ -37,6 +37,8 @@ class HelpPopup < Sprite
 		
 		self.visible = false
 		@disposed = false
+		
+		puts_self
 	end
 	
 	def create_box(text)

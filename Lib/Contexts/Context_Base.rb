@@ -20,9 +20,15 @@ class Context_Base
   end
   
   def update
-    Thread.main.raise InvalidContextScene
+    unless @back.nil?
+			exit if @back.mouse_over? && Input.mouse?
+		end
   end
   
+	def exit
+		Thread.main.raise InvalidContextScene
+	end
+	
   def unload
     @graphics.each { |gr|
       gr.bitmap.dispose
@@ -30,6 +36,10 @@ class Context_Base
     }
     @graphics = []
 		@window.dispose
+		unless @back.nil?
+			@back.bitmap.dispose
+			@back.dispose
+		end
   end
   
   def gr_add(bitmap)
@@ -109,6 +119,16 @@ class Context_Base
 		
 		ret[1] = gr_last
 		ret
+	end
+	
+	def activate_back
+		@back = Sprite.new
+		@back.bitmap = Bitmap.new System::Skins::OSC.get_file(:menu_back)
+		
+		@back.x = 5
+		@back.y = 480 - @back.bitmap.height - 5
+		
+		@back.add_info_text("Go back to last screen")
 	end
 	
 end

@@ -41,7 +41,6 @@ module System
 			System::Loads.load_language_file
 			System::Loads.load_settings
 			System::Loads.load_infotexts
-			System::Globs.clear_temp_directory
 			System::Globs.set_osu_dir
 			$bg_past.bitmap = Bitmap.new($default_bg)
 			
@@ -60,6 +59,7 @@ module System
 		
 		# Secure that the user names folder exist and creates the default settings files. 
 		def self.secure_folder
+			p "via stub!"
 			unless FileTest.exist? $user_name
 				Dir.mkdir($user_name)
 				Dir.mkdir($user_name + "/SkinData")
@@ -109,7 +109,7 @@ module System
 							proc.call
 						rescue
 							print $!.message
-							Kernel.exit
+							System::Globs.terminate
 						end
 					end
 					
@@ -133,13 +133,10 @@ module System
 					
 					$log.log(true, :warning, "Unable to find file #{filename}.")
 				rescue Hangup
-					$log.log_else
 					Excp_Handle.Hangup($!)
 				rescue SyntaxError
-					$log.log_else
 					Excp_Handle.SyntaxError($!)
 				rescue
-					$log.log_else
 					Excp_Handle.Exception($!)
 				end
 			
@@ -155,34 +152,6 @@ module System
 			$terminate = true
 		end
 
-		# Clears the temporary directory
-		def self.clear_temp_directory
-			$log.log(false, :info, "Globs: clear_temp_directory")
-			files = read_files_recursive("Shared/Temp")
-				files.each { |file|
-				File.delete("Shared/Temp/" + file)
-			}
-		end
-
-		# Read a directories input recursively
-		def self.read_files_recursive(dir)
-			files = []
-			Dir.foreach(dir) { |file|
-				next if file == "." || file == ".."
-				begin
-					System::Globs.read_files_recursive(dir + "/" + file) if file.match(/\./).nil?
-				rescue Errno::ENOENT
-					# Supplement Errno::ENOENT exception
-					# If unable to open file, display message and end
-					filename = $!.message.sub("No such file or directory - ", "")
-
-					$log.log(false, :warning, "Unable to find file #{filename}.")
-				end
-				files << file
-			}
-			files
-		end
-
 		# Filter the running threads by living and not living threads
 		def self.filter_threads
 			$log.log(false, :info, "Globs: filter_threads")
@@ -191,6 +160,8 @@ module System
 				deads << th unless th.status == "run"
 			}
 			deads.each { |th|
+				puts "thread dead"
+				th.puts_self
 				$threads.delete th
 			}
 		end

@@ -4,38 +4,41 @@ module SkinCreate
 	
 		class StartUp
 		
-			def setup
+			def setup(type=0)
 				$notes << "Calculating overview!"
 				texts = ["Create a normal osu! skin", "Create a special skin only for beatmaps"]
 				
-				@type = 0
+				@type = type
 				
 				@skin_type = Sprite.new
 				@skin_type.x = 16
 				@skin_type.y = 74
 				@skin_type.bitmap = UpDown.new(640 - 32, texts)
+				@skin_type.bitmap.index = @type
 				
 				@skin_list = []
-				@loader = Sprite.new
 				@new = Sprite.new
 				@last = Sprite.new
 				
-				Dir.foreach($osu_dir + "/Skins") { |file|
-					next if file == "." || file == ".."
+				if @type == 0
+					@loader = Sprite.new
+					Dir.foreach($osu_dir + "/Skins") { |file|
+						next if file == "." || file == ".."
+						
+						f_name = "#{$osu_dir}/Skins/#{file}/"
+						next unless FileTest.exist?(f_name + "skin.ini")
+						@skin_list << f_name
+					}
 					
-					f_name = "#{$osu_dir}/Skins/#{file}/"
-					next unless FileTest.exist?(f_name + "skin.ini")
-					@skin_list << f_name
-				}
-				
-				unless @skin_list.size == 0
-					# draw "load skin" button
-					skin = @skin_list[rand(@skin_list.size)]
-					
-					@loader = SkinPreview.new(222, 110, "Load Skin", skin)
-				else
-					@loader = SkinPreview.new(222, 110, "No Skins :(")
-					@loader.disable
+					unless @skin_list.size == 0
+						# draw "load skin" button
+						skin = @skin_list[rand(@skin_list.size)]
+						
+						@loader = SkinPreview.new(222, 110, "Load Skin", skin)
+					else
+						@loader = SkinPreview.new(222, 110, "No Skins :(")
+						@loader.disable
+					end
 				end
 				
 				@new = SkinPreview.new(16, 110, "New Skin")
@@ -49,9 +52,10 @@ module SkinCreate
 			end
 			
 			def unload
-				@loader.dispose
+				@loader.dispose if @type == 0
 				@new.dispose
 				@last.dispose
+				@skin_type.dispose
 			end
 			
 			def update
@@ -60,15 +64,22 @@ module SkinCreate
 				
 				i = @skin_type.bitmap.index
 				if i != @type
+					unload
 					@type = i
-					p "kontext anpassen!"
+					setup(@type)
 				end
 				
-				@loader.update
+				@loader.update if @type == 0
 				@new.update
 				@last.update
 				
-				nil
+				ret = nil
+				if Input.mouse?
+					if @type == 0
+						ret = SkinCreate::Context::LoadSkin.new if @loader.hover
+					end
+				end
+				ret
 			end
 			
 			def has_forward

@@ -13,7 +13,7 @@ module System
 				overlay = Bitmap.new(overlay_path).clone
 				default = Bitmap.new(default_num_path).clone
 				
-				circle.coloring(color)
+				#circle.coloring(color)
 				
 				circle.blt(0, 0, overlay, overlay.rect)
 				

@@ -46,9 +46,6 @@ module Excp
   # (Symbol)
   @error_scene = :Error
   
-  # Bei true werden alle Game-Variablen in eine extra Datei geloggt (Vars.log).
-  def self.log_variables; false; end
-  
   # Gibt an, ob beim Logging Variablen mit dem Wert "0" ignoriert werden.
   def self.ignore_zero_values; false; end
     
@@ -79,19 +76,3 @@ end
   #  method: Zeile oder Methode wo der Aufruf / Fehler herkommt (Optional)
   
   #  $log.log(put, level, message[, script, method])
-  
-  # Manuelles Loggen aller Game-Variablen
-  #  $log.log_variables
-  # Ohne Null-Werte:
-  #  $log.log_variables(true)
-  
-  # Manuelles Loggen aller Game-Switches
-  #  $log.log_switches
-  # Ohne deaktivierte Switches
-  #  $log.log_switches(true)
-  
-  # Manuelles loggen der Variablen-Typen
-  #  (Da hier nur der Logging-Algorythmus angestoﬂen wird, werden eventuell
-  #  bestimmte Logs entsprechend den Einstellungen ausgelassen!)
-  #  (ignore_zero_values entspricht dann den Einstellungen)
-  #  $log.log_else

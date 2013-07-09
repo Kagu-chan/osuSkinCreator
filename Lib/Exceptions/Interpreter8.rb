@@ -68,17 +68,14 @@ class Interpreter
     begin
       result = eval(script)
     rescue SyntaxError
-      $log.log_else
       Excp_Handle.SyntaxError($!)
       write_inp_details(script)
       refresh_scene
     rescue Hangup
-      $log.log_else
       Excp_Handle.Hangup($!)
       write_inp_details(script)
       refresh_scene
     rescue
-      $log.log_else
       Excp_Handle.CallScriptError($!)
       write_inp_details(script)
       refresh_scene

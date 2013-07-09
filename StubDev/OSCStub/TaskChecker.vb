@@ -50,7 +50,7 @@ Namespace OSC
                     Dim userFolder As String = String.Empty
 
                     If Not stream.EndOfStream Then userFolder = stream.ReadLine
-                    
+
                     stream.Close()
                     If Not userFolder.Equals(String.Empty) Then TaskExecuter.CopySkinFiles(userFolder)
                 Case 2

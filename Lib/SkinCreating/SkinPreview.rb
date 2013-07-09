@@ -1,7 +1,8 @@
 class SkinPreview < Window_Base
 
 	attr_reader :disabled
-
+	attr_reader :hover
+	
 	def initialize(x, y, text, path=nil)
 		super(x, y, 196, 147, 200)
 		
@@ -17,10 +18,34 @@ class SkinPreview < Window_Base
 		refresh
 	end
 	
+	def px; self.x; end
+	def py; self.y; end
+	
+	def px=(value)
+		diff = self.x - value
+		return if diff == 0
+		
+		self.x -= diff
+		@sprites.each { |s| s.x -= diff }
+	end
+	
+	def py=(value)
+		diff = self.y - value
+		return if diff == 0
+		
+		self.y -= diff
+		@sprites.each { |s| s.y -= diff }
+	end
+	
 	def hover=(value)
 		return if value == @hover
 		@hover = value
 		r_hover
+	end
+	
+	def visible=(value)
+		@sprites.each { |s| s.visible = value }
+		super
 	end
 	
 	def disable
@@ -69,7 +94,8 @@ class SkinPreview < Window_Base
 		
 		s = Sprite.new
 		s.bitmap = Bitmap.new(192, 34)
-		s.bitmap.font.color = b.bitmap.get_inverted_color
+		#s.bitmap.font.color = b.bitmap.get_inverted_color
+		s.bitmap.font.color = Color.new(0, 0, 0)
 		s.bitmap.draw_text(s.bitmap.rect, @text + "   ", 2)
 		s.x += 2 + self.x
 		s.y = 147 - 2 - 34 + self.y

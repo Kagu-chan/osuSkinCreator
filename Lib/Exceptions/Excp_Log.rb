@@ -121,11 +121,8 @@ class ExcpLog
   # Schlieﬂt den Datei-Stream
   def close_stream
     # Ist Stream ist nil, dann ist kein Stream offen. Abbruch und Ende.
-    if @stream == nil
-      print "No stream found. Could not close stream!"
-      Kernel.exit
-    end
-    
+    System::Globs.terminate if @stream.nil?
+     
     # Schlieﬂen des Stream
     @stream.close
     @stream = nil
@@ -142,10 +139,8 @@ class ExcpLog
     return if level == :debug and not $DEBUG
     
     # Ist Stream ist nil, dann ist kein Stream offen. Abbruch und Ende.
-    if @stream == nil
-      print "No stream found. Could not Log events!"
-      Kernel.exit
-    end
+    System::Globs.terminate if @stream.nil?
+		
     # Wenn ein unbekannter Log-Level genutzt wird, wird dies aufgezeichnet
     unless @level.include? level
       lv = :warning
@@ -162,6 +157,7 @@ class ExcpLog
     
     # Ausgeben einer Nachricht
     print message if put
+		puts text
     
     # Schreiben in den Stream
     @stream.puts text
@@ -203,77 +199,8 @@ class ExcpLog
     end
     text.concat "--------------------\n"
     
+		puts text
     @stream.puts text
-  end
-  
-  def log_else
-    log_variables(Excp.ignore_zero_values) if Excp.log_variables
-    log_switches(Excp.ignore_zero_values) if Excp.log_switches
-  end
-  
-  # Schreibt alle Game-Variables in eine Datei.
-  # ignore_zero_values gibt an, ob 0-Werte ignoriert werden sollen.
-  def log_variables(ignore_zero_values=false)
-    data = $game_variables
-    text = "cant log variables!"
-    unless data.nil?
-      # Herausfinden, welche Variaben gesetzt sind
-      # (Letzte Nicht-Null-Variable finden)
-      last_setted = 0
-      for i in 0..5000
-        last_setted = i unless data[i] == 0
-      end
-      data = last_setted == 0 ? [] : data[0..last_setted]
-      
-      # Variablen "z‰hlen" (Wie viele werden verwendet)
-      count_data = data - [0]
-      variables_used = count_data.size
-      
-      text = "Variables: Actually are #{variables_used} variable(s) used!\n\n\n\n"
-      
-      data.each_index { |array_index|
-        value = data[array_index]
-        next if value == 0 && ignore_zero_values
-        id_text = sprintf("%04d", array_index + 1)
-        text += "ID #{id_text}:   #{value}\n"
-      }
-      text += "\n\n\nNo variables with higher indizies setted"
-    end
-    stream = File.open("Vars.log", "w+")
-    stream.puts text
-    stream.close
-  end
-  
-  # Schreibt alle Game-Switches in eine Datei
-  def log_switches(ignore_zero_values=false)
-    data = $game_switches
-    text = "cant log switches!"
-    unless data.nil?
-      # Herausfinden, welche Variablen gesetzt sind
-      # (Letzte Nicht-Null-Variable finden)
-      last_setted = 0
-      for i in 0..5000
-        last_setted = i if data[i]
-      end
-      data = !last_setted ? [] : data[0..last_setted]
-      
-      # Variablen "z‰hlen" (Wie viele werden verwendet)
-      count_data = data - [false]
-      variables_used = count_data.size
-      
-      text = "Switches: Actually are #{variables_used} switches(s) activated!\n\n\n\n"
-      
-      data.each_index { |array_index|
-        value = data[array_index]
-        next if !value && ignore_zero_values
-        id_text = sprintf("%04d", array_index + 1)
-        text += "ID #{id_text}:   #{value}\n"
-      }
-      text += "\n\n\nNo switches with higher indizies setted"
-    end
-    stream = File.open("Switches.log", "w+")
-    stream.puts text
-    stream.close
   end
   
 end

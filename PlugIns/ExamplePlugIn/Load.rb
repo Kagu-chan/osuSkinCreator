@@ -1,1 +1,1 @@
-'Beispiel-Erweiterung', 'System.rb'
+'Beispiel-Erweiterung', 'ExampleSettings', 'This plugin is only showing how plugins work.', 'Welcome.rb', "Settings.rb", "Overwrites.rb"

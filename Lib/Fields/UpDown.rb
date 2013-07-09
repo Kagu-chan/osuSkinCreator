@@ -25,6 +25,13 @@ class UpDown < Bitmap
 		refresh
 	end
 	
+	def index=(value)
+		return if value == @index
+		return if value >= @count
+		@index = value
+		refresh
+	end
+	
 	def current
 		@items[@index]
 	end
