@@ -1,3 +1,5 @@
+**PROJECT PAUSED**
+
 Dev Version of osu! Skin Creator
 
 osu! Skin Creator if a suppot software for the game osu!. 
